@@ -166,7 +166,14 @@ Image组件常用属性：
 - width：宽度 一般结合ClipOval才能看到效果
 - height：高度 一般结合ClipOval才能看到效果
 
+## 5.列表组件
 
+列表组件常用参数：
+
+- scrollDirection：Axis.horizontal水平列表，Axis.vertical垂直列表
+- padding：内边距
+- resolve：组件反向排序
+- children：列表元素
 
 
 
