@@ -86,6 +86,8 @@ lib目录里面都有一个main.dart这个文件就是flutter的入口文件
 - **StatelessWidget** 是无状态组件，状态不可变的widget
 - **StatefulWidget** 是有状态组件，持有的状态可能在widget生命周期改变
 
+也就是说如果想要改变页面中的数据，就需要用到**StatefulWidget** 
+
 ## 1.用MaterialApp和Scaffold两个组件装饰App
 
 **MaterialApp**：是一个方便的Widget，它封装了应用程序实现Material Design所需要的一些Widget。一般作为顶层widget使用。
@@ -175,15 +177,161 @@ Image组件常用属性：
 - resolve：组件反向排序
 - children：列表元素
 
+## 6.GridView网格布局
 
+scrollDirection：滚动方法 
 
+padding：内边距 
 
+resolve：组件反向排序
 
+crossAxisSpacing：水平子Widget之间间距 
 
+mainAxisSpacing：垂直子Widget之间间距
 
+crossAxisCount：一行的Widget数量
 
+maxCrossAxisExtent：横轴子元素的最大长度
 
+childAspectRatio：子Widget宽高比例
 
+children：子组件
+
+gridDelegate：控制布局主要用在GridView.builder里 面
+
+## 7.线性布局（Row和Column）
+
+**Row** **水平布局组件**、**Column垂直布局组件**：
+
+- mainAxisAlignment：主轴的排序方式
+- crossAxisAlignment：次轴的排序方式
+- children：组件子元素
+
+## 8.弹性布局（Flex Expanded）
+
+Flex 组件可以沿着水平或垂直方向排列子组件，如果你知道主轴方向，使用 Row 或 Column 会方便一些，因为 Row和Column 都继承自 Flex ，参数基本相同，所以能使用Flex的地方基本上都可以使用Row 或 Column 。 Flex 本身功能是很强大的，它也可以和Expanded 组件配合实现弹性布局 。
+
+## 9.层叠布局（Stack、Align、Positioned）
+
+Stack、Align：
+
+- alignment：配置所有子元素的显示位置
+
+  - Alignment Widget会以**矩形的中心点作为坐标原点**，即 Alignment(0.0, 0.0) 。 x 、 y 的值从-1到1分别代表矩形左边到右边的距离和顶部到底边的距离，因此2个水平（或垂直）单位则等于矩形的宽（或高），如 Alignment(-1.0, -1.0) 代表矩形的左侧顶点，而 Alignment(1.0, 1.0) 代表右侧底，如 Alignment(-1.0, -1.0) 代表矩形的左侧顶点，而 Alignment(1.0, 1.0) 代表右侧底部终点，而 Alignment(1.0, -1.0) 则正是右侧顶点，即 Alignment.topRight 。
+
+    Alignment 可以通过其**坐标转换公式**将其坐标转为子元素的具体偏移坐标：
+
+    `(Alignment.x*childWidth/2+childWidth/2, Alignment.y*childHeight/2+childHeight/2)`
+
+- children：子组件
+
+Align 组件可以调整子组件的位置 , Stack组件中结合Align组件也可以控制每个子元素的显示位置。
+
+Center 继承自 Align ，它比 Align 只少了一个 alignment 参数，因为Align 的构造函数中
+
+alignment 值为 Alignment.center
+
+---
+
+**Positioned**：
+
+- top：子元素距离顶部的距离
+- bottom：子元素距离底部的距离
+- left：子元素距离左侧距离
+- right：子元素距离右侧距离
+- child：子组件
+- width：组件的宽度 （注意：宽度和高度必须是固定值，没法使用double.infifinity）
+- height：子组件的高度
+
+Stack组件中结合Positioned组件也可以控制每个子元素的显示位置
+
+## 10.AspectRatio
+
+**AspectRatio**的作用是根据设置调整子元素child的宽高比。
+
+**AspectRatio**首先会在布局限制条件允许的范围内尽可能的扩展，widget的高度是由宽度和比率决定的，类似于BoxFit中的contain，按照固定比率去尽量占满区域。
+
+如果在满足所有限制条件过后无法找到一个可行的尺寸，AspectRatio最终将会去优先适应布局限制条件，而忽略所设置的比率。
+
+- aspectRatio：宽高比，最终可能不会根据这个值去布局，具体则要看综合因素，外层是否允许按照这种比率进行布局，这只是一个参考值
+- child：子组件
+
+## 11.Card组件
+
+Card是卡片组件块，内容可以由大多数类型的Widget构成，Card具有圆角和阴影，这让它看起来有立体感。
+
+- margin：外边距
+- child：子组件
+- elevation：阴影值的深度
+- color：背景颜色
+- shadowColor：阴影颜色
+- clipBehavior：clipBehavior 内容溢出的剪切方式 Clip.none不剪切 Clip.hardEdge裁剪但不应用抗锯齿 Clip.antiAlias裁剪而且抗锯齿 Clip.antiAliasWithSaveLayer带有抗锯齿的剪辑，并在剪辑之后立即保存saveLayer
+- Shape：Card的阴影效果，默认的阴影效果为圆角的长方形边。 shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+
+## 12.按钮
+
+按钮组件的属性：
+
+- onPressed：必填参数，按下按钮时触发的回调，接收一个方法，传null表示按钮禁用，会显示禁用相关样式
+- child：子组件
+- style：通过ButtonStyle装饰
+
+ButtonStylee参数：
+
+- foregroundColor：文本颜色
+- backgroundColor：按钮颜色
+- shadowColor：阴影颜色
+- padding：内边距
+- shape：设置按钮的形状
+- side：设置边框
+
+### 12.1 **ElevatedButton**
+
+ElevatedButton 即"凸起"按钮，它默认带有阴影和灰色背景。按下后，阴影会变大。
+
+### 12.2 **TextButton**
+
+TextButton 即文本按钮，默认背景透明并不带阴影。按下后，会有背景色
+
+### 12.3 **OutlinedButton**
+
+OutlineButton 默认有一个边框，不带阴影且背景透明。按下后，边框颜色会变亮、同时出现背景和阴影
+
+### 12.4 **IconButton**
+
+IconButton 是一个可点击的Icon，不包括文字，默认没有背景，点击后会出现背景
+
+## 13.Wrap组件
+
+Wrap可以实现流布局，单行的Wrap跟Row表现几乎一致，单列的Wrap则跟Column表现几乎一致。
+
+但Row与Column都是单行单列的，Wrap则突破了这个限制，mainAxis上空间不足时，则向crossAxis上去扩展显示。
+
+属性：
+
+- direction：主轴的方向，默认水平
+- **alignment**：主轴的对其方式
+- **spacing**：主轴方向上的间距
+- **textDirection**：文本方向
+- verticalDirection：定义了children摆放顺序，默认是down，见Flex相关属性介绍
+- runAlignment：run的对齐方式。run可以理解为新的行或者列，如果是水平方向布局的话，run可以理解为新的一行
+- **runSpacing**：run的间距
+
+# 五.Scaffold属性
+BottomNavigationBar 自定义底部导航
+
+## 1.**BottomNavigationBar** **组件介绍**
+
+BottomNavigationBar是底部导航条，可以让我们定义底部Tab切换，bottomNavigationBar是Scaffold组件的参数。
+
+BottomNavigationBar属性：
+
+- items：List 底部导航条按钮集合
+- iconSize：icon大小
+- currentIndex：默认选中第几个
+- onTap：选中变化回调函数
+- fixedColor：选中的颜色
+- type：BottomNavigationBarType.fixed BottomNavigationBarType.shifting
 
 
 

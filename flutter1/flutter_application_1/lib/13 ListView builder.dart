@@ -45,6 +45,7 @@ class MyHomePage extends StatelessWidget {
         itemBuilder: (context, index) {
           return ListTile(
             title: Text("${list[index]}"),
+            subtitle: Divider(),
           );
         });
   }
