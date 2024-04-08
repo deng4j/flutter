@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner:false , //去掉debug图标
     home: Scaffold(
       appBar: AppBar(title: const Text("你好flutter"),),
       body: const HomeWidget(),

@@ -4,7 +4,7 @@
 
 Flutter 是 Google推出并开源的移动应⽤开发框架，主打跨平台、⾼保真、⾼性能。开发者可以通过 Dart语⾔开发App，⼀套代码同时运⾏在 iOS 、Android、web、Linux、macOs、Windows平台。 Flutter提供了丰富的组件、接⼝，开发者可以很快地为 Flutter添加native扩展。同时 Flutter还使⽤ Native引擎渲染视图，这⽆疑能为⽤户提供良好的体验。
 
-## 1.跨平台⾃绘引擎
+## 1.跨平台自绘引擎
 
 Flutter与⽤于构建移动应⽤程序的其它⼤多数框架不同，因为Flutter既不使⽤WebView，也不使⽤操作系统的原⽣控件。 相反，Flutter使⽤⾃⼰的⾼性能渲染引擎来绘制widget。这样不仅可以保证在Android和iOS上UI的⼀致性，⽽且也可以避免对原⽣控件依赖⽽带来的限制及⾼昂的维护成本。
 
@@ -37,7 +37,7 @@ Flutter⾼性能主要靠两点来保证，⾸先，Flutter APP采⽤Dart语⾔�
 运行在所有的设备：flutter run -d all
 指定设备运行：flutter run -d chrome
 
-热加载一定是debug模式下
+热加载一定是debug模式下：
 r 键：点击后热加载，也就算是重新加载吧。
 R 键：热重启项目。
 p 键：显示网格，这个可以很好的掌握布局情况，工作中很有用。
@@ -54,6 +54,14 @@ q 键：退出调试预览模式。
 获取项⽬所有依赖包的最新版本：flutter packages upgrade
 查看日志：flutter logs
 ```
+
+热加载注意：
+
+```css
+Scaffold.body的页面改变才能立即热加载，MaterialApp或Scaffold其他属性改变需要Flutter Hot Restart重新加载
+```
+
+
 
 # 三.flutter应用文件
 
@@ -318,8 +326,6 @@ Wrap可以实现流布局，单行的Wrap跟Row表现几乎一致，单列的Wra
 - **runSpacing**：run的间距
 
 # 五.Scaffold属性
-BottomNavigationBar 自定义底部导航
-
 ## 1.**BottomNavigationBar** **组件介绍**
 
 BottomNavigationBar是底部导航条，可以让我们定义底部Tab切换，bottomNavigationBar是Scaffold组件的参数。
@@ -332,6 +338,109 @@ BottomNavigationBar属性：
 - onTap：选中变化回调函数
 - fixedColor：选中的颜色
 - type：BottomNavigationBarType.fixed BottomNavigationBarType.shifting
+
+## 2.**FloatingActionButton**组件
+
+FloatingActionButton简称FAB ,可以实现浮动按钮
+
+属性
+
+- child：子视图，一般为Icon，不推荐使用文字
+- tooltip：FAB被长按时显示，也是无障碍功能
+- backgroundColor：背景颜色
+- elevation：未点击的时候的阴影
+- highlightElevation：点击时阴影值，默认12.0
+- onPressed：点击事件回调
+- shape：可以定义FAB的形状等
+- mini：是否是mini类型默认false
+
+## 3.抽屉菜单Drawer
+
+在Scaffold组件里面传入drawer参数可以定义左侧边栏，传入endDrawer可以定义右侧边栏。
+
+侧边栏默认是隐藏的，我们可以通过手指滑动显示侧边栏，也可以通过点击按钮显示侧边栏。
+
+DrawerHeader常见属性：
+
+- decoration：设置顶部背景颜色
+- child：配置子元素
+- padding：内边距
+- margin：外边距
+
+**UserAccountsDrawerHeader**常见属性：
+
+- decoration：设置顶部背景颜色
+- accountName：账户名称 
+- accountEmail ：账户邮箱
+- currentAccountPicture ：用户头像
+- otherAccountsPictures：用来设置当前账户其他账户头像
+
+# 六.AppBar、TabBar、TabBarView
+
+## 1.AppBar自定义顶部按钮图标、颜色
+
+- leading：在标题前面显示的一个控件，在首页通常显示应用的 logo；在其他界面通常显示为返回按钮
+- title：标题，通常显示为当前界面的标题文字，可以放组件
+- actions：通常使用 IconButton 来表示，可以放按钮组
+- bottom：通常放tabBar，标题下面显示一个 Tab 导航栏
+- backgroundColor：导航背景颜色
+- iconTheme：图标样式
+- centerTitle：标题是否居中显示
+
+## 2.TabBar
+
+属性：
+
+- tabs：显示的标签内容，一般使用Tab对象,也可以是其他的Widget
+- controller：TabController对象
+- isScrollable：是否可滚动
+- indicatorColor：指示器颜色
+- indicatorWeight：指示器高度
+- indicatorPadding：底部指示器的Padding
+- indicator：指示器decoration，例如边框等
+- indicatorSize：指示器大小计算方式，TabBarIndicatorSize.label跟文字等宽，TabBarIndicatorSize.tab跟每个tab等宽
+- labelColor：选中label颜色
+- labelStyle：选中label的Style
+- labelPadding：每个label的padding值
+- unselectedLabelColor：未选中label颜色
+- unselectedLabelStyle：未选中label的Style
+
+# 七.路由
+
+Flutter中通过Navigator组件管理路由导航。并提供了管理堆栈的方法。如：**Navigator.push**和**Navigator.pop**。
+
+Flutter中给我们提供了两种配置路由跳转的方式：
+
+- 基本路由 
+- 命名路由
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
