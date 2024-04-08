@@ -24,7 +24,8 @@
    FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
    
    清华：
-   FLUTTER_STORAGE_BASE_URL: https://mirrors.tuna.tsinghua.edu.cn/flutter PUB_HOSTED_URL: https://mirrors.tuna.tsinghua.edu.cn/dart-pub
+   FLUTTER_STORAGE_BASE_URL: https://mirrors.tuna.tsinghua.edu.cn/flutter 
+   PUB_HOSTED_URL: https://mirrors.tuna.tsinghua.edu.cn/dart-pub
    ```
 
    系统变量Path中添加flutter的路径配置环境变量
