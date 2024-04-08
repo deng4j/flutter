@@ -1,3 +1,24 @@
+# gradle-7.6.3-all.zip下载慢
+
+更改项目安卓目录下android/gradle/wrapper/gradle-wrapper.properties
+
+```css
+distributionUrl=https\://mirrors.cloud.tencent.com/gradle/gradle-7.6.3-all.zip
+
+或者
+
+distributionUrl=file\:///D:/development/gradle/gradle-7.6.3-all.zip
+```
+
+# Running Gradle task 'assembleDebug'...卡住
+
+原因：Gradle 下载不下来
+
+解决：
+
+- 项目目录 android/build.gradle
+
+```css
 buildscript {
     ext {
         kotlin_version = "1.8.0"
@@ -58,4 +79,26 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+```
+
+# The plugin fluttertoast requires a higher Android SDK version.   
+
+```css
+Fix this issue by adding the following to the file 
+
+D:\developmentProject\flutter\flutter1\flutter_application_1\android\app\build.gradle: 
+
+android {  
+   defaultConfig {
+
+      minSdkVersion 21 
+   }  
+ } 
+```
+
+解决：
+
+1. Android Studio -> SDK Manager -> SDK Platforms tab -> 选择 API Level 21或者以上的版本并安装。
+
+2. minSdkVersion 改为你最新的版本，如改为33
 

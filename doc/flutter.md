@@ -51,8 +51,10 @@ q 键：退出调试预览模式。
 查看设备：flutter devices
 升级Flutter sdk：flutter upgrade
 在pubspec.yaml目录下，获取项目所需依赖：flutter packages get
+添加某个依赖：flutter pub add fluttertoast
 获取项⽬所有依赖包的最新版本：flutter packages upgrade
 查看日志：flutter logs
+删除所有缓存的包：flutter pub cache clean
 ```
 
 热加载注意：
@@ -414,9 +416,25 @@ Flutter中给我们提供了两种配置路由跳转的方式：
 - 基本路由 
 - 命名路由
 
+# 八.Dialog
 
+## 1.AlertDialog
 
+## 2.SimpleDialog、SimpleDialogOption
 
+## 3.showModalBottomSheet
+
+## 4.Toast
+
+### 4.1 fluttertoast
+
+https://pub.dev/packages/flfluttertoast
+
+### 4.2 ftoast
+
+支持LINUX MACOS WEB WINDOWS的插件
+
+https://pub.dev/packages/ftoast
 
 
 
