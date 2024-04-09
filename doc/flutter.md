@@ -436,9 +436,22 @@ https://pub.dev/packages/flfluttertoast
 
 https://pub.dev/packages/ftoast
 
+# 九.PageView
 
+轮动图以及抖音上下滑页切换视频功能等等，这些都可以通过 PageView 轻松实现。
 
+PageView属性：
 
+- scrollDirection：Axis.horizonta水平方向 Axis.vertical锤子方向
+- children：配置子元素
+- allowImplicitScrolling：缓存当前页面的前后两页
+- onPageChanged：page改变的时候触发
+
+# 十.Key
+
+很多的 Widget，比如 Container、Row、Column 等，它们在我们绘制界面的过程中发挥着重要的作用。但是不知道你有没有注意到，在几乎每个 Widget 的构造函数中，都有一个共同的参数，它们通常在参数列表的第一个，那就是 Key。 
+
+在Flutter中，**Key是不能重复使用的**，所以Key一般用来做唯一标识。组件在更新的时候，其状态的保存主要是通过判断组件的类型或者key值是否一致。因此，当各组件的类型不同的时候，类型已经足够用来区分不同的组件了，此时我们可以不必使用key。但是如果同时存在多个同一类型的控件的时候，此时类型已经无法作为区分的条件了，我们就需要使用到key。
 
 
 
