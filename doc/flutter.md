@@ -453,15 +453,31 @@ PageView属性：
 
 在Flutter中，**Key是不能重复使用的**，所以Key一般用来做唯一标识。组件在更新的时候，其状态的保存主要是通过判断组件的类型或者key值是否一致。因此，当各组件的类型不同的时候，类型已经足够用来区分不同的组件了，此时我们可以不必使用key。但是如果同时存在多个同一类型的控件的时候，此时类型已经无法作为区分的条件了，我们就需要使用到key。
 
+ Flutter key子类包含 LocalKey 和 GlobalKey ：
 
+- 局部键（LocalKey）：
+  - ValueKey （值key）把一个值作为key
+  - UniqueKey（唯一key）程序生成唯一的Key，当我们不知道如何指定ValueKey的时候就可以使用UniqueKey
+  - ObjectKey（对象key）把一个对象实例作为key
 
+- 全局键（GlobalKey）： GlobalKey、GlobalObjectKey
+  - *globalKey.currentState* 可以获取子组件的状态，执行子组件的方法
+  - globalKey.currentWidget可以获取子组件的属性，
+  - _globalKey.currentContext!.fifindRenderObject()可以获取渲染的属性。
 
+# 十一.Widget Tree、Element Tree 和 RenderObject Tree
 
+Flutter应用是由是Widget Tree、Element Tree 和 RenderObject Tree组成：
 
+- Widget：Widget就是一个类， 是Element 的配置信息。与Element的关系可以是一对多，一份配置可以创造多个Element实例
+- Element：Widget 的实例化，内部持有Widget和RenderObject。
+- RenderObject：负责渲染绘制
 
+**关于GlobalKey**： 每个 Widget 都对应一个 Element ，我们可以直接对 Widget 进行操作，但是无法直接操作 Widget 对应的 Element 。而 GlobalKey 就是那把直接访问 Element 的钥匙。通过 GlobalKey可以获取到 Widget 对应的 Element 。
 
+# 十二. AnimatedList增加列表FadeTransition、ScaleTransition
 
-
+添加列表时，两种渐显动画
 
 
 
