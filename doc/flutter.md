@@ -477,7 +477,107 @@ Flutter应用是由是Widget Tree、Element Tree 和 RenderObject Tree组成：
 
 # 十二. AnimatedList增加列表FadeTransition、ScaleTransition
 
-添加列表时，两种渐显动画
+AnimatedList 和 ListView 的功能大体相似，不同的是， AnimatedList 可以在列表中插入或删除节点时执行一个动画，在需要添加或删除列表项的场景中会提高用户体验。
+
+# 十三.动画
+
+## 1.动画原理
+
+在任何系统的UI框架中，动画实现的原理都是相同的，即：在一段时间内，快速地多次改变UI外观；由于人眼会产生视觉暂留，所以最终看到的就是一个“连续”的动画，这和电影的原理是一样的。我们将UI的一次改变称为一个动画帧，对应一次屏幕刷新，而决定动画流畅度的一个重要指标就是帧率FPS（Frame Per Second），即每秒的动画帧数。
+
+很明显，帧率越高则动画就会越流畅！一般情况下，对于人眼来说，动画帧率超过16 FPS，就基本能看了，超过 32 FPS就会感觉相对平滑，而超过 32FPS，大多数人基本上就感受不到差别了。由于动画的每一帧都是要改变UI输出，所以在一个时间段内
+连续的改变UI输出是比较耗资源的，对设备的软硬件系统要求都较高，所以在UI系统中，动画的平均帧率是重要的性能指标，而在Flutter中，理想情况下是可以实现60FPS 的，这和原生应用能达到的帧率是基本是持平的。
+
+## 2.隐式动画
+
+通过几行代码就可以实现隐式动画，由于隐式动画**背后的实现原理和繁琐的操作细节都被隐去了**，所以叫隐式动画，FLutter中提供的 AnimatedContainer、AnimatedPadding、AnimatedPositioned、AnimatedOpacity、AnimatedDefaultTextStyle、AnimatedSwitcher都属于隐式动画。
+
+### 2.1 AnimatedContainer
+
+AnimatedContainer的属性和Container属性基本是一样的，当AnimatedContainer属性改变的时候就会触发动画。
+
+### 2.2 AnimatedPadding以及curve属性
+
+Curves曲线值：
+
+- linear：匀速的
+- decelerate：匀减速
+- ease：开始加速，后面减速
+- easeIn：开始慢，后面快
+- easeOut：开始快，后面慢
+- easeInOut：开始慢，然后加速，最后再减速
+
+### 2.3 AnimatedPositioned
+
+
+
+### 2.4 AnimatedDefaultTextStyle
+
+
+
+### 2.5 AnimatedSwitcher及transitionBuilder
+
+上面讲的AnimatedContainer、AnimatedPadding、AnimatedPositioned、AnimatedOpacity、AnimatedDefaultTextStyle都是在属性改变的时候执行动画，AnimatedSwitcher则是在子元素改变的时候执行动画。
+
+相比上面的动画组件AnimatedSwitcher多了transitionBuilder参数，可以在transitionBuilder中自定义动画。
+
+## 3.显式动画
+
+常见的显式动画有RotationTransition、FadeTransition、ScaleTransition、SlideTransition、AnimatedIcon。
+
+在显示动画中开发者需要创建一个AnimationController，通过AnimationController控制动画的开始、暂停、重置、跳转、倒播等。
+
+### 3.1 AnimationController
+
+AnimationController 用于控制动画，它包含动画的启动 forward() 、停止 stop() 、反向播放reverse() 等方法。
+
+ AnimationController 会在动画的每一帧，就会生成一个新的值。默认情况下， AnimationController 在给定的时间段内线性的生成从 0.0 到1.0（默认区间）的数字 ，我们也可以通过 lowerbound 和 upperBound 来修改 AnimationController 生成数字的区间。
+
+### 3.2 Tween
+
+默认情况下， AnimationController 对象值的范围是[0.0，1.0]。如果我们需要构建UI的动画值在不同的范围或不同的数据类型，则可以使用 Tween 来添加映射以生成不同的范围或数据类型的值。
+
+### 3.3 SlideTransition
+
+这是一负责平移的显示动画组件，使用时需要通过position属性传入一个Animated表示位移程度，通常借助Tween实现。
+
+### 3.4 AnimatedIcon
+
+AnimatedIcon顾名思义，是一个用于提供动画图标的组件，它的名字虽然是以Animated开头，但是他是一个显式动画组件，需要通过progress属性传入动画控制器，另外需要由Icon属性传入动画图标数据
+
+### 3.5 交错动画
+
+### 3.6 自定义动画
+
+**TweenAnimationBuilder自定义隐式动画**：每当Tween的end发生变化的时候就会触发动画。
+
+### 3.7 AnimatedBuilder 自定义显式动画
+
+## 4.Hero 动画
+
+微信朋友圈点击小图片的时候会有一个动画效果到大图预览，这个动画效果就可以使用Hero 动画实现。
+
+Hero 指的是可以在路由(页面)之间“飞行”的 widget，简单来说 Hero 动画就是在路由切换时，有一个共享的widget 可以在新旧路由间切换。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

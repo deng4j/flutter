@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text("ScaleTransition渐显动画"),
+        title: Text("ScaleTransition渐显动画 左右淡入淡出过渡"),
       ),
       body: AnimatedList(
         key: globalKey,
