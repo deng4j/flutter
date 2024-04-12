@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// 开pubspec.yaml中flutter下面的assets声明一下添加的图片文件
+// 开pubspec.yaml中flutter下面的assets声明一下添加的图片文件
 main() {
   runApp(MaterialApp(
     home: Scaffold(
