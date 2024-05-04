@@ -1,0 +1,37 @@
+{
+  "id": "4532736",
+  "name": "dy",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1283",
+      "name": "视频",
+      "font_class": "shipin",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1129603",
+      "name": "首页",
+      "font_class": "shouye",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "4266181",
+      "name": "收藏",
+      "font_class": "shoucang",
+      "unicode": "e71c",
+      "unicode_decimal": 59164
+    },
+    {
+      "icon_id": "7629076",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e6bd",
+      "unicode_decimal": 59069
+    }
+  ]
+}

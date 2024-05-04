@@ -23,9 +23,10 @@ class HomePage extends StatelessWidget {
       width: 200,
       color: Colors.yellow,
       child: AspectRatio(
-        aspectRatio: 3 / 2, // 宽/高比率
-        child: Container(
-          color: Colors.red,
+        aspectRatio: 16.0 / 9.0, // 设置宽高比为16:9
+        child: Image.network(
+          "https://tse2-mm.cn.bing.net/th/id/OIP-C.Pndzkamr9D_-rsmHi58QNwAAAA?rs=1&pid=ImgDetMain",
+          fit: BoxFit.cover,
         ),
       ),
     );

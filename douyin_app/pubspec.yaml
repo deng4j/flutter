@@ -88,3 +88,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: iconfont #指定图标库名
+      fonts:
+        - asset: fonts/iconfont.ttf
+

@@ -28,6 +28,7 @@ class Myapp1 extends StatelessWidget {
             image: DecorationImage(
                 image: NetworkImage(
                     "https://img0.utuku.imgcdc.com/650x0/ent/20210616/6c295cef-c0a1-4af3-b666-41dbee2ffce0.jpg"),
+                // 图片铺满
                 fit: BoxFit.cover)),
       ),
     );

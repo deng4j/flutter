@@ -18,7 +18,6 @@ class _HomePageState extends State<HomePage> {
       height: queryData.size.height,
       // 宽度为屏幕的0.8
       width: queryData.size.width,
-      // color: Colors.green,
       // margin: EdgeInsetsDirectional.only(top: queryData.size.height * 0.05),
       child: SizedBox(
           width: queryData.size.width,

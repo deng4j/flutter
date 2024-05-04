@@ -1,8 +1,10 @@
+import 'package:douyin_app/pages/VideoPage.dart';
+import 'package:douyin_app/pages/favorite.dart';
+import 'package:douyin_app/route/route.dart';
+import 'package:douyin_app/utils/HexColorUtil.dart';
 import 'package:flutter/material.dart';
-import 'tabs/home.dart';
-import 'tabs/category.dart';
-import 'tabs/setting.dart';
-import 'tabs/user.dart';
+import 'entity/Iconfont.dart';
+import 'pages/home.dart';
 
 main() {
   runApp(MyApp());
@@ -12,13 +14,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, //去掉debug图标
-      title: '本地视频播放器',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Tabs(),
-    );
+        debugShowCheckedModeBanner: false,
+        //去掉debug图标
+        title: '本地视频播放器',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const Tabs(),
+        initialRoute: '/',
+        // 调用onGenerateRoute处理
+        onGenerateRoute: onGenerateRoute);
   }
 }
 
@@ -31,21 +36,21 @@ class Tabs extends StatefulWidget {
 
 class _TabsState extends State<Tabs> {
   int _currentIndex = 0;
-  final List<Widget> _pages = const [HomePage(), CategoryPage(), UserPage()];
+  final List<Widget> _pages = const [HomePage(), VideoPage(), FavoritePage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_currentIndex], // 切换页面
       bottomNavigationBar: BottomNavigationBar(
-          fixedColor: Colors.red,
           //选中的颜色
-          iconSize: 35,
+          fixedColor: HexColorUtil.fromHex("#93B281"),
           //底部菜单大小
-          currentIndex: _currentIndex,
+          iconSize: 25,
           //第几个菜单选中
-          type: BottomNavigationBarType.fixed,
+          currentIndex: _currentIndex,
           //如果底部有4个或者4个以上的菜单的时候就需要配置这个参数
+          type: BottomNavigationBarType.fixed,
           onTap: (index) {
             //点击菜单触发的方法
             //注意
@@ -54,9 +59,9 @@ class _TabsState extends State<Tabs> {
             });
           },
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "主页"),
-            BottomNavigationBarItem(icon: Icon(Icons.video_call), label: "视频"),
-            BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "收藏"),
+            BottomNavigationBarItem(icon: Icon(Iconfont.shouye), label: "首页"),
+            BottomNavigationBarItem(icon: Icon(Iconfont.shipin), label: "视频"),
+            BottomNavigationBarItem(icon: Icon(Iconfont.shoucang), label: "收藏"),
           ]),
     );
   }

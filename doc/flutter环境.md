@@ -8,6 +8,8 @@
 
 安装flutter、dart插件，安装好插件后，Android studio会出现创建flutter项目的按钮
 
+Flutter Enhanced：自动生成StatefulWidget、快速生成常用Widget的代码、代码片段等功能
+
 ## 2.下载flutter sdk
 
 1. 下载最新可用的安装包[Flutter SDK archive | Flutter](https://docs.flutter.dev/release/archive?tab=windows#windows) 

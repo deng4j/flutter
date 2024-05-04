@@ -102,3 +102,15 @@ android {
 
 2. minSdkVersion 改为你最新的版本，如改为33
 
+# Flutter升级dart至3.1.0开发版之后遇到orientation.dart没有SystemChrome.setEnabledSystemUIOverlays报错的解决办法
+
+解决办法：
+
+```css
+打开pub仓库：~/.pub-cache/hosted/mirrors.tuna.tsinghua.edu.cn%47dart-pub%47/orientation-1.3.0/lib/orientation.dart
+
+修改前：SystemChrome.setEnabledSystemUIOverlays(overlays);
+
+修改后：SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: overlays);
+```
+

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/**
+ * 通常容器空间需要根据内容的大小而撑开的时候用 MainAxisSize.min，MainAxisSize.max则相反默认就是最大可占用的空间；
+ * Row/Column组件如果没有设置mainAxisSize属性，默认为max属性值
+ */
 main() {
   runApp(MaterialApp(
     home: Scaffold(

@@ -1,4 +1,9 @@
+import 'package:douyin_app/data/tabbar_data.dart';
+import 'package:douyin_app/pages/videoCoverPage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../entity/Iconfont.dart';
 
 class Tabbar extends StatefulWidget {
   Tabbar();
@@ -22,9 +27,33 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
     return _tabController;
   }
 
+  late CategoryCounter _categoryCounter = categoryCounterPublic;
+
+  late List<Widget> tabList;
+  late List<Widget> contentList;
+  late int tabLength;
+
   @override
   void initState() {
     super.initState();
+
+    // tabbar初始化数据
+    initTabList();
+    // 监听数据变化
+    _categoryCounter.addListener(() {
+      //数值改变的监听
+      initTabList();
+    });
+  }
+
+  void initTabList() {
+    tabList = _categoryCounter.tabListData.map((e) {
+      return Tab(child: Text(e.name));
+    }).toList();
+    contentList = _categoryCounter.tabListData.map((e) {
+      return VideoCoverPage(_categoryCounter.videoCoverList);
+    }).toList();
+    tabLength = _categoryCounter.tabListData.length;
   }
 
   @override
@@ -36,7 +65,7 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     // 获取屏幕尺寸
     MediaQueryData queryData = MediaQuery.of(context);
-    TabController t = get_tabController(length: 12);
+    TabController t = get_tabController(length: tabLength);
     return Scaffold(
         appBar: AppBar(
           title: SizedBox(
@@ -49,9 +78,9 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.center, // 次轴的排序方式
                 mainAxisAlignment: MainAxisAlignment.start, // 主轴的排序方式
                 children: const [
-                  Icon(Icons.search),
+                  Icon(Iconfont.sousuo),
                   Text(
-                    " 输入演员或番号搜索",
+                    " 输入演员或名字搜索",
                     style: TextStyle(color: Colors.grey),
                   )
                 ],
@@ -68,38 +97,12 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
             labelColor: Colors.black,
             //未选中文字颜色
             unselectedLabelColor: Colors.grey,
-            tabs: const [
-              Tab(child: Text("热门")),
-              Tab(child: Text("推荐")),
-              Tab(child: Text("视频")),
-              Tab(child: Text("热门")),
-              Tab(child: Text("推荐")),
-              Tab(child: Text("视频")),
-              Tab(child: Text("热门")),
-              Tab(child: Text("推荐")),
-              Tab(child: Text("视频")),
-              Tab(child: Text("热门")),
-              Tab(child: Text("推荐")),
-              Tab(child: Text("视频")),
-            ],
+            tabs: tabList,
           ),
         ),
         body: TabBarView(
           controller: t,
-          children: [
-            Text("热门TabBarView"),
-            Text("推荐TabBarView"),
-            Text("视频TabBarView"),
-            Text("热门TabBarView"),
-            Text("推荐TabBarView"),
-            Text("视频TabBarView"),
-            Text("热门TabBarView"),
-            Text("推荐TabBarView"),
-            Text("视频TabBarView"),
-            Text("热门TabBarView"),
-            Text("推荐TabBarView"),
-            Text("视频TabBarView"),
-          ],
+          children: contentList,
         ));
   }
 }

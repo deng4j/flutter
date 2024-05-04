@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 /**
- * Expanded Widget 会尽可能地扩展子组件的大小，以使其占据父组件的所有可用空间。
+ * Flexible Widget则提供了更大的灵活性，它可以让子组件根据需要自动调整大小，以适应父组件的尺寸。
+ * 和Expanded不同，Flexible Widget会在必要时缩小子组件的大小，以保持子组件在父组件中的可见性。
  */
 main() {
   runApp(MaterialApp(
@@ -21,8 +22,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Flex(direction: Axis.horizontal, children: [
-      Expanded(flex: 2, child: IconContainer(Icons.home, color: Colors.red)),
-      Expanded(flex: 1, child: IconContainer(Icons.search, color: Colors.blue))
+      Flexible(flex: 6, child: IconContainer(Icons.home, color: Colors.red)),
+      Flexible(flex: 1, child: IconContainer(Icons.search, color: Colors.blue))
     ]);
   }
 }

@@ -37,11 +37,12 @@ class Myapp2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double radius = 110; // 使用一样的圆角
     return const CircleAvatar(
-      radius: 110,
+      radius: radius,
       backgroundColor: Colors.lightBlueAccent,
       child: CircleAvatar(
-        radius: 110,
+        radius: radius,
         backgroundImage: NetworkImage(
             "https://c-ssl.dtstatic.com/uploads/blog/202009/25/20200925205030_d5648.thumb.1000_0.jpeg"),
       ),
