@@ -43,6 +43,10 @@ dependencies:
   chewie: ^1.3.0
   # 全屏插件
   orientation: ^1.3.0
+  # 屏幕旋转
+  auto_orientation: ^2.2.1
+  # 亮度和音量调节
+  brightness_volume: ^1.0.3
 
 
 dev_dependencies:
