@@ -1,4 +1,14 @@
+# Unable to find git in your PATH.
+
+将所有文件夹指定为安全的
+
+```she
+git config --global --add safe.directory '*'
+```
+
 # gradle-7.6.3-all.zip下载慢
+
+或者报错：Exception in thread "main" java.net.ConnectException: Connection timed out: connect
 
 更改项目安卓目录下android/gradle/wrapper/gradle-wrapper.properties
 
@@ -15,6 +25,32 @@ distributionUrl=file\:///D:/development/gradle/gradle-7.6.3-all.zip
 原因：Gradle 下载不下来
 
 解决：
+
+- 修改flutter sdk："\flutter\packages\flutter_tools\gradle\flutter.gradle"
+
+  ```css
+  buildscript {
+      repositories {
+          
+          maven {
+              url 'https://maven.aliyun.com/repository/public'
+          }
+          maven {
+              url 'https://maven.aliyun.com/repository/gradle-plugin'
+          }
+          maven {
+              url 'https://maven.aliyun.com/repository/google'
+          }
+          maven {
+              url 'https://maven.aliyun.com/repository/central'
+          }
+      }
+      dependencies {
+          /* When bumping, also update ndkVersion above. */
+          classpath 'com.android.tools.build:gradle:7.3.0'
+      }
+  }
+  ```
 
 - 项目目录 android/build.gradle
 
@@ -39,8 +75,8 @@ buildscript {
         maven {
             url 'https://maven.aliyun.com/repository/central'
         }
-        mavenLocal()
-        mavenCentral()
+        // mavenLocal()
+        // mavenCentral()
     }
 
     dependencies {
@@ -63,8 +99,8 @@ allprojects {
         maven {
             url 'https://maven.aliyun.com/repository/central'
         }
-        mavenLocal()
-        mavenCentral()
+        // mavenLocal()
+        // mavenCentral()
     }
 }
 
@@ -80,6 +116,8 @@ tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
 ```
+
+实在不行去`C:\Users\13539\.gradle\wrapper\dists`删除重下
 
 # The plugin fluttertoast requires a higher Android SDK version.   
 
