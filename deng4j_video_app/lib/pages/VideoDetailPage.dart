@@ -1,3 +1,5 @@
+import 'package:douyin_app/pages/default_player.dart';
+import 'package:douyin_app/utils/HexColorUtil.dart';
 import 'package:flutter/material.dart';
 
 class VideoDetailPage extends StatefulWidget {
@@ -14,16 +16,49 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("新世纪福音战士"),
+        title: Text(
+          widget.arguments["name"].toString(),
+          style: TextStyle(fontSize: 15),
+        ),
         centerTitle: true,
       ),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Center(
-          child: Text(widget.arguments["id"].toString()),
-        ),
-      ),
+          width: double.infinity,
+          height: double.infinity,
+          color: HexColorUtil.fromHex("#d6dded"),
+          child: ListView(
+            children: [
+              DefaultPlayer(widget.arguments["videoUrl"].toString()),
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                elevation: 20,
+                margin: EdgeInsets.only(left: 3, right: 3, top: 5, bottom: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch, // 次轴的排序方式
+                  mainAxisAlignment: MainAxisAlignment.spaceAround, // 主轴的排序方式
+                  children: <Widget>[
+                    Text(
+                      "  番号：",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(
+                      "  名字：",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(
+                      "  演员：",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(
+                      "  发行日期：",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )),
     );
   }
 }

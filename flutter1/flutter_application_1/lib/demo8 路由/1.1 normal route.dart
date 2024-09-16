@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.red,
-          title: Text(widget.name), // 接收传过来的值
+          title: Text(widget.name), // 接收传过来的值（父类的传值）
           centerTitle: true,
         ),
         body: Center(

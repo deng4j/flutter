@@ -18,7 +18,8 @@ class _VideoCoverPageState extends State<VideoCoverPage> {
       return GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, "/video_detail_page",
-                arguments: {"id": value['id']});
+                // 传值给视频详情页面
+                arguments: {"id": value['id'], "name": value['name'], "videoUrl": value['videoUrl']});
           },
           child: Container(
               child: Column(

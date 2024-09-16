@@ -8,7 +8,7 @@ git config --global --add safe.directory '*'
 
 # gradle-7.6.3-all.zip下载慢
 
-或者报错：Exception in thread "main" java.net.ConnectException: Connection timed out: connect
+报错：Exception in thread "main" java.net.ConnectException: Connection timed out: connect
 
 更改项目安卓目录下android/gradle/wrapper/gradle-wrapper.properties
 
@@ -20,9 +20,11 @@ distributionUrl=https\://mirrors.cloud.tencent.com/gradle/gradle-7.6.3-all.zip
 distributionUrl=file\:///D:/development/gradle/gradle-7.6.3-all.zip
 ```
 
+实在不行去`C:\Users\13539\.gradle\wrapper\dists`删除重下
+
 # Running Gradle task 'assembleDebug'...卡住
 
-原因：Gradle 下载不下来
+原因：Gradle编译的时候下载插件慢
 
 解决：
 
@@ -44,6 +46,16 @@ distributionUrl=file\:///D:/development/gradle/gradle-7.6.3-all.zip
           maven {
               url 'https://maven.aliyun.com/repository/central'
           }
+  
+          maven {
+              url 'https://maven.aliyun.com/repository/jcenter'
+          }
+          maven {
+              allowInsecureProtocol = true
+              url 'http://maven.aliyun.com/nexus/content/groups/public'
+          }
+          google()
+          mavenCentral()
       }
       dependencies {
           /* When bumping, also update ndkVersion above. */
@@ -61,9 +73,6 @@ buildscript {
     }
     repositories {
         maven {
-            url 'https://maven.aliyun.com/repository/public/'
-        }
-        maven {
             url 'https://maven.aliyun.com/repository/public'
         }
         maven {
@@ -75,8 +84,16 @@ buildscript {
         maven {
             url 'https://maven.aliyun.com/repository/central'
         }
-        // mavenLocal()
-        // mavenCentral()
+
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+        }
+        maven {
+            allowInsecureProtocol = true
+            url 'http://maven.aliyun.com/nexus/content/groups/public'
+        }
+        google()
+        mavenCentral()
     }
 
     dependencies {
@@ -99,8 +116,16 @@ allprojects {
         maven {
             url 'https://maven.aliyun.com/repository/central'
         }
-        // mavenLocal()
-        // mavenCentral()
+
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+        }
+        maven {
+            allowInsecureProtocol = true
+            url 'http://maven.aliyun.com/nexus/content/groups/public'
+        }
+        google()
+        mavenCentral()
     }
 }
 
@@ -117,7 +142,41 @@ tasks.register("clean", Delete) {
 }
 ```
 
-实在不行去`C:\Users\13539\.gradle\wrapper\dists`删除重下
+切换到android目录下：
+
+```shell
+cd android
+./gradlew clean
+./gradlew build
+```
+
+错误：
+
+```css
+Execution failed for task ':gradle:compileGroovy'.
+> BUG! exception in phase 'semantic analysis' in source unit 'D:\development\flutter sdk\flutter\packages\flutter_tools\gradle\src\main\groovy\app_plugin_loader.groovy' Unsupported class file major version 65
+```
+
+JDK版本和gradle版本不兼容，查看对应版本：[Compatibility Matrix (gradle.org)](https://docs.gradle.org/current/userguide/compatibility.html#compatibility?login=from_csdn)
+
+更改项目安卓目录下android/gradle/wrapper/gradle-wrapper.properties
+
+```css
+# 我的jdk版本是21，所以使用gradle-8.5-all.zip
+distributionUrl=https\://mirrors.cloud.tencent.com/gradle/gradle-8.5-all.zip
+```
+
+重新编译：
+
+```css
+# 这步成功就可以运行flutter项目了
+./gradlew clean
+
+# 这一步可能报错this and base files have different roots
+./gradlew build
+```
+
+
 
 # The plugin fluttertoast requires a higher Android SDK version.   
 

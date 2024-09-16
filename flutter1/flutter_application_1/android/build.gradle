@@ -4,9 +4,6 @@ buildscript {
     }
     repositories {
         maven {
-            url 'https://maven.aliyun.com/repository/public/'
-        }
-        maven {
             url 'https://maven.aliyun.com/repository/public'
         }
         maven {
@@ -18,7 +15,15 @@ buildscript {
         maven {
             url 'https://maven.aliyun.com/repository/central'
         }
-        mavenLocal()
+
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+        }
+        maven {
+            allowInsecureProtocol = true
+            url 'http://maven.aliyun.com/nexus/content/groups/public'
+        }
+        google()
         mavenCentral()
     }
 
@@ -42,7 +47,15 @@ allprojects {
         maven {
             url 'https://maven.aliyun.com/repository/central'
         }
-        mavenLocal()
+
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+        }
+        maven {
+            allowInsecureProtocol = true
+            url 'http://maven.aliyun.com/nexus/content/groups/public'
+        }
+        google()
         mavenCentral()
     }
 }
