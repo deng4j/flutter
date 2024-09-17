@@ -18,24 +18,21 @@ class CategoryCounter extends ChangeNotifier {
       "name": '追凶',
       "imageUrl":
           'https://img.zcool.cn/community/01400f5ebc1007a801214814f53b15.jpg@1280w_1l_2o_100sh.jpg',
-      "videoUrl":
-          'https://github.com/deng4j/static/blob/master/16_9_6109506097121332658.mp4?raw=true',
+      "videoUrl": 'http://192.168.1.2:8080/baseResource/video/1',
     },
     {
       "id": 2,
       "name": '三体',
       "imageUrl":
           'https://img.zcool.cn/community/01400f5ebc1007a801214814f53b15.jpg@1280w_1l_2o_100sh.jpg',
-      "videoUrl":
-          'https://github.com/deng4j/static/blob/master/9_16_6125012848910274095.MP4?raw=true',
+      "videoUrl": 'http://192.168.1.2:8080/baseResource/video/2',
     },
     {
       "id": 3,
       "name": '哆啦A梦',
       "imageUrl":
           'https://ts1.cn.mm.bing.net/th/id/R-C.c1267332d58adda52004e43325753cee?rik=In0LU5TNSdf%2bjA&riu=http%3a%2f%2ffiles.nowre.com%2farticles%2f2020%2f11%2fRlE7.jpg&ehk=dN6rJ58gFjxBolMx7abjFqOxSSkvsiha%2brSaSi4vlI4%3d&risl=&pid=ImgRaw&r=0',
-      "videoUrl":
-          'https://github.com/deng4j/static/blob/master/16_9_6109506097121332659.mp4?raw=true',
+      "videoUrl": 'http://192.168.1.2:8080/baseResource/video/3',
     },
     {
       "id": 4,
@@ -111,3 +108,6 @@ class CategoryCounter extends ChangeNotifier {
 }
 
 CategoryCounter categoryCounterPublic = CategoryCounter();
+
+// 主机地址
+String host = "192.168.1.2";
