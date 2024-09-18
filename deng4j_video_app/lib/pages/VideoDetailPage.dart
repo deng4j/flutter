@@ -12,6 +12,19 @@ class VideoDetailPage extends StatefulWidget {
 }
 
 class _VideoDetailPageState extends State<VideoDetailPage> {
+  List _videoPathList = [
+    {
+      "id": 1,
+      "name": '第一集',
+      "videoUrl": 'http://192.168.1.2:8080/baseResource/video/1',
+    },
+    {
+      "id": 2,
+      "name": '第二集',
+      "videoUrl": 'http://192.168.1.2:8080/baseResource/video/2',
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +41,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
           color: HexColorUtil.fromHex("#d6dded"),
           child: ListView(
             children: [
-              DefaultPlayer(widget.arguments["videoUrl"].toString()),
+              DefaultPlayer(_videoPathList[0]["videoUrl"].toString()),
               Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10))),
