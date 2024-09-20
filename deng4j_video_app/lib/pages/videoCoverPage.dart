@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 
 import '../utils/keepAliveWrapper.dart';
 
-// --------------------------------------------
+// 首页中一个个的视频封面
 class VideoCoverPage extends StatefulWidget {
   List videoCoverList;
 

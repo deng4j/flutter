@@ -215,3 +215,42 @@ android {
 修改后：SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: overlays);
 ```
 
+# Execution failed for task ':app:compileFlutterBuildDebug'. > Process 'command 'D:\development\flutter sdk\flutter\bin\flutter.bat'' finished with non-zero exit value 1
+
+```shell
+No file or variants found for asset: images/launch.jpg.  Target debug_android_application failed: Exception: Failed to bundle asset files.
+```
+
+找不到launch.jpg图片，导致pubspec.yaml无法加载
+
+也可以检查build过程：
+
+```shell
+flutter build apk  --release -vv 
+```
+
+```shell
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileFlutterBuildDebug'.
+> Process 'command 'D:\development\flutter sdk\flutter\bin\flutter.bat'' finished with non-zero exit value 1
+
+
+
+[  +44 ms] Error: No pubspec.yaml file found.
+           This command should be run from the root of your Flutter project.
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

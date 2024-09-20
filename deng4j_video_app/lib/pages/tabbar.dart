@@ -1,4 +1,6 @@
+import 'package:douyin_app/data/Instance.dart';
 import 'package:douyin_app/data/tabbar_data.dart';
+import 'package:douyin_app/httpController/categoryController.dart';
 import 'package:douyin_app/pages/videoCoverPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,7 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
     return _tabController;
   }
 
-  late CategoryCounter _categoryCounter = categoryCounterPublic;
+  late DataCounter _dataCounter = dataCounterCounterPublic;
 
   late List<Widget> tabList;
   late List<Widget> contentList;
@@ -36,24 +38,26 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    var categoryDTO = getCategoryDTO();
 
     // tabbar初始化数据
     initTabList();
     // 监听数据变化
-    _categoryCounter.addListener(() {
+    _dataCounter.addListener(() {
       //数值改变的监听
       initTabList();
     });
   }
 
   void initTabList() {
-    tabList = _categoryCounter.tabListData.map((e) {
+    // GetCategoryList("");
+    tabList = _dataCounter.tabListData.map((e) {
       return Tab(child: Text(e.name));
     }).toList();
-    contentList = _categoryCounter.tabListData.map((e) {
-      return VideoCoverPage(_categoryCounter.videoCoverList);
+    contentList = _dataCounter.tabListData.map((e) {
+      return VideoCoverPage(_dataCounter.videoCoverList);
     }).toList();
-    tabLength = _categoryCounter.tabListData.length;
+    tabLength = _dataCounter.tabListData.length;
   }
 
   @override

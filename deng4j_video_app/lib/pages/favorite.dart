@@ -1,8 +1,6 @@
 import 'package:douyin_app/data/tabbar_data.dart';
 import 'package:flutter/material.dart';
 
-import '../entity/category.dart';
-
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
 
@@ -16,8 +14,7 @@ class _FavoritePageState extends State<FavoritePage> {
     return Center(
       child: ElevatedButton(
         onPressed: () {
-          // categoryCounterPublic.addTabBarData(Category(4, '3d'));
-          categoryCounterPublic.addvideoCoverData({
+          dataCounterCounterPublic.addvideoCoverData({
             "id": 9,
             "name": '斗牌传说',
             "imageUrl":

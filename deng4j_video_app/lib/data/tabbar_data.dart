@@ -5,7 +5,7 @@ import '../entity/category.dart';
 /**
  * 设置监听数据
  */
-class CategoryCounter extends ChangeNotifier {
+class DataCounter extends ChangeNotifier {
   List<Category> _tabListData = [
     Category(1, "国产"),
     Category(2, "欧美"),
@@ -94,7 +94,4 @@ class CategoryCounter extends ChangeNotifier {
   }
 }
 
-CategoryCounter categoryCounterPublic = CategoryCounter();
-
-// 主机地址
-String host = "192.168.1.2";
+DataCounter dataCounterCounterPublic = DataCounter();
