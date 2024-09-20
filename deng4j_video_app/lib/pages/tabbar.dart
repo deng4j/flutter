@@ -67,42 +67,43 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
     MediaQueryData queryData = MediaQuery.of(context);
     TabController t = get_tabController(length: tabLength);
     return Scaffold(
-        appBar: AppBar(
-          title: SizedBox(
-            // 搜索按钮
-            width: queryData.size.width,
-            height: 40,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center, // 次轴的排序方式
-                mainAxisAlignment: MainAxisAlignment.start, // 主轴的排序方式
-                children: const [
-                  Icon(Iconfont.sousuo),
-                  Text(
-                    " 输入演员或名字搜索",
-                    style: TextStyle(color: Colors.grey),
-                  )
-                ],
-              ),
+      appBar: AppBar(
+        title: SizedBox(
+          // 搜索按钮
+          width: queryData.size.width,
+          height: 40,
+          child: ElevatedButton(
+            onPressed: () {},
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center, // 次轴的排序方式
+              mainAxisAlignment: MainAxisAlignment.start, // 主轴的排序方式
+              children: const [
+                Icon(Iconfont.sousuo),
+                Text(
+                  " 输入演员或名字搜索",
+                  style: TextStyle(color: Colors.grey),
+                )
+              ],
             ),
           ),
-          bottom: TabBar(
-            controller: t,
-            //可滚动
-            isScrollable: true,
-            //指示器的颜色
-            indicatorColor: Colors.white70,
-            //选中文字颜色
-            labelColor: Colors.black,
-            //未选中文字颜色
-            unselectedLabelColor: Colors.grey,
-            tabs: tabList,
-          ),
         ),
-        body: TabBarView(
+        bottom: TabBar(
           controller: t,
-          children: contentList,
-        ));
+          //可滚动
+          isScrollable: true,
+          //指示器的颜色
+          indicatorColor: Colors.white70,
+          //选中文字颜色
+          labelColor: Colors.black,
+          //未选中文字颜色
+          unselectedLabelColor: Colors.grey,
+          tabs: tabList,
+        ),
+      ),
+      body: TabBarView(
+        controller: t,
+        children: contentList,
+      ),
+    );
   }
 }

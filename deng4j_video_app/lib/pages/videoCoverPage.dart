@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../utils/keepAliveWrapper.dart';
+
 // --------------------------------------------
 class VideoCoverPage extends StatefulWidget {
   List videoCoverList;
@@ -19,7 +21,11 @@ class _VideoCoverPageState extends State<VideoCoverPage> {
           onTap: () {
             Navigator.pushNamed(context, "/video_detail_page",
                 // 传值给视频详情页面
-                arguments: {"id": value['id'], "name": value['name'], "videoUrl": value['videoUrl']});
+                arguments: {
+                  "id": value['id'],
+                  "name": value['name'],
+                  "videoUrl": value['videoUrl']
+                });
           },
           child: Container(
               child: Column(
@@ -53,7 +59,8 @@ class _VideoCoverPageState extends State<VideoCoverPage> {
     // 获取屏幕宽高
     final size = MediaQuery.of(context).size;
 
-    return GridView.count(
+    return KeepAliveWrapper( // 页面缓存
+        child: GridView.count(
       //水平子 Widget 之间间距
       crossAxisSpacing: 3.0,
       //垂直子 Widget 之间间距
@@ -63,7 +70,7 @@ class _VideoCoverPageState extends State<VideoCoverPage> {
       //宽度和高度的比例,0.735
       childAspectRatio: 0.7,
       children: _getListData(size),
-    );
+    ));
   }
 
   _VideoCoverPageState();

@@ -176,7 +176,11 @@ distributionUrl=https\://mirrors.cloud.tencent.com/gradle/gradle-8.5-all.zip
 ./gradlew build
 ```
 
+# this and base files have different roots
 
+此问题会出现在你的**项目路径 不在 C 盘(系统盘)或是不在 flutter sdk 所在盘符下**。正常在 flutter 项目中运行没有问题，会出现在将 **flutter 以 Android 项目打开**
+
+解决：创建一个PUB_CACHE的系统环境变量，重启电脑，重新pub get，让依赖于项目在一同磁盘
 
 # The plugin fluttertoast requires a higher Android SDK version.   
 

@@ -2,6 +2,7 @@ import 'package:douyin_app/pages/VideoPage.dart';
 import 'package:douyin_app/pages/favorite.dart';
 import 'package:douyin_app/route/route.dart';
 import 'package:douyin_app/utils/HexColorUtil.dart';
+import 'package:douyin_app/utils/keepAliveWrapper.dart';
 import 'package:flutter/material.dart';
 import 'entity/Iconfont.dart';
 import 'pages/home.dart';
@@ -36,12 +37,27 @@ class Tabs extends StatefulWidget {
 
 class _TabsState extends State<Tabs> {
   int _currentIndex = 0;
+  var _pageController;
   final List<Widget> _pages = const [HomePage(), VideoPage(), FavoritePage()];
+
+  @override
+  void initState() {
+    _pageController = PageController(initialPage: _currentIndex);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex], // 切换页面
+      //页面保持状态，必须用 PageView 加载不同的页面
+      body: PageView(
+        controller: _pageController,
+        // 切换页面
+        children: _pages,
+        onPageChanged: (index) {
+          _currentIndex = index;
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
           //选中的颜色
           fixedColor: HexColorUtil.fromHex("#93B281"),
@@ -56,6 +72,8 @@ class _TabsState extends State<Tabs> {
             //注意
             setState(() {
               _currentIndex = index;
+              //页面控制器进行跳转
+              _pageController.jumpToPage(_currentIndex);
             });
           },
           items: const [
