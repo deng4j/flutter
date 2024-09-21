@@ -63,7 +63,7 @@ class DioUtils {
 
   DioUtils() {
     BaseOptions options = BaseOptions(
-      baseUrl: "http://192.168.137.1:8080/",
+      baseUrl: "http://192.168.136.1:8080/",
       connectTimeout: Duration(seconds: 180),
       receiveTimeout: Duration(seconds: 180),
     );

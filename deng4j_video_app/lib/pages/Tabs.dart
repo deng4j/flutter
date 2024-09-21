@@ -1,4 +1,3 @@
-import 'package:douyin_app/data/Instance.dart';
 import 'package:douyin_app/entity/Iconfont.dart';
 import 'package:douyin_app/pages/VideoPage.dart';
 import 'package:douyin_app/pages/favorite.dart';
@@ -20,12 +19,6 @@ class _TabsState extends State<Tabs> {
 
   @override
   void initState() {
-    // 查看是否找到主机ip
-    while (true) {
-      if (Instance.serverHost != null && Instance.serverHost != "") {
-        break;
-      }
-    }
     _pageController = PageController(initialPage: _currentIndex);
     super.initState();
   }

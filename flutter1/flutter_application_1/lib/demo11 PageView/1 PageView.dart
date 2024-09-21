@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// 轮动图以及抖音上下滑页切换视频功能等等
 main() {
   runApp(MaterialApp(
     home: Scaffold(

@@ -16,12 +16,12 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     {
       "id": 1,
       "name": '第一集',
-      "videoUrl": 'http://192.168.1.2:8080/baseResource/video/1',
+      "videoUrl": 'http://192.168.136.1:8080/baseResource/video/1',
     },
     {
       "id": 2,
       "name": '第二集',
-      "videoUrl": 'http://192.168.1.2:8080/baseResource/video/2',
+      "videoUrl": 'http://192.168.136.1:8080/baseResource/video/2',
     },
   ];
 

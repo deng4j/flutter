@@ -38,8 +38,6 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    var categoryDTO = getCategoryDTO();
-
     // tabbar初始化数据
     initTabList();
     // 监听数据变化
@@ -50,7 +48,6 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
   }
 
   void initTabList() {
-    // GetCategoryList("");
     tabList = _dataCounter.tabListData.map((e) {
       return Tab(child: Text(e.name));
     }).toList();

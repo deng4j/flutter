@@ -1,3 +1,6 @@
+import 'package:douyin_app/data/tabbar_data.dart';
+import 'package:douyin_app/entity/dto/CategoryDTO.dart';
+import 'package:douyin_app/httpController/categoryController.dart';
 import 'package:flutter/material.dart';
 import 'Tabbar.dart';
 
@@ -27,7 +30,23 @@ class _HomePageState extends State<HomePage>
       child: SizedBox(
           width: queryData.size.width,
           height: queryData.size.height,
-          child: Tabbar()),
+          child: FutureBuilder<CategoryDTO>(
+            future: _getVideoCategory(), // 获取视频分类
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Tabbar();
+              }
+              return Center(
+                child: Text("获取视频分类中！！！"),
+              );
+            },
+          )),
     );
+  }
+
+  Future<CategoryDTO> _getVideoCategory() async {
+    CategoryDTO categoryDTO = await getCategoryDTO();
+    dataCounterCounterPublic.tabListData = categoryDTO.categoryList!;
+    return categoryDTO;
   }
 }

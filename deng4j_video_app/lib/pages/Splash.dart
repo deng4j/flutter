@@ -12,29 +12,38 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Container(
-            child: Image.asset(
-              "images/launch.png",
-              fit: BoxFit.fill,
-            ),
-          ),
-          Container(
-            alignment: Alignment.topRight,
-            padding: const EdgeInsets.fromLTRB(0.0, 45.0, 10.0, 0.0),
-            child: OutlinedButton(
-              child: Text(
-                "跳过",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white),
-              ),
-              onPressed: () {
-                goTabsPage();
-              },
-            ),
-          ),
-        ],
+      body: FutureBuilder<String>( // 获取ip成功才加载首页
+        future: scanServerIP(), // 查找服务端ip
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done)
+            return Stack(
+              children: <Widget>[
+                Container(
+                  child: Image.asset(
+                    "images/launch.png",
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.topRight,
+                  padding: const EdgeInsets.fromLTRB(0.0, 45.0, 10.0, 0.0),
+                  child: OutlinedButton(
+                    child: Text(
+                      "跳过",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      goTabsPage();
+                    },
+                  ),
+                ),
+              ],
+            );
+          return Center(
+            child: Text("获取本地ip失败，请尝试重启!"),
+          );
+        },
       ),
     );
   }
@@ -43,8 +52,6 @@ class _SplashState extends State<Splash> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // 查找服务端ip
-    scanServerIP();
     countDown();
   }
 
