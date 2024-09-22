@@ -1,7 +1,5 @@
-import 'package:douyin_app/data/Instance.dart';
 import 'package:douyin_app/data/tabbar_data.dart';
-import 'package:douyin_app/httpController/categoryController.dart';
-import 'package:douyin_app/pages/videoCoverPage.dart';
+import 'package:douyin_app/pages/videoCoverPages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +41,7 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
     // 监听数据变化
     _dataCounter.addListener(() {
       //数值改变的监听
-      initTabList();
+      // initTabList();
     });
   }
 
@@ -52,7 +50,7 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
       return Tab(child: Text(e.name));
     }).toList();
     contentList = _dataCounter.tabListData.map((e) {
-      return VideoCoverPage(_dataCounter.videoCoverList);
+      return VideoCoverPages(e);
     }).toList();
     tabLength = _dataCounter.tabListData.length;
   }

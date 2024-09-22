@@ -1,6 +1,11 @@
 import 'package:douyin_app/data/tabbar_data.dart';
+import 'package:douyin_app/entity/AjaxResult.dart';
+import 'package:douyin_app/entity/category.dart';
 import 'package:douyin_app/entity/dto/CategoryDTO.dart';
+import 'package:douyin_app/entity/dto/VideoDTO.dart';
+import 'package:douyin_app/entity/vo/CategoryVideoVO.dart';
 import 'package:douyin_app/httpController/categoryController.dart';
+import 'package:douyin_app/pages/videoCover.dart';
 import 'package:flutter/material.dart';
 import 'Tabbar.dart';
 
@@ -30,23 +35,49 @@ class _HomePageState extends State<HomePage>
       child: SizedBox(
           width: queryData.size.width,
           height: queryData.size.height,
-          child: FutureBuilder<CategoryDTO>(
+          child: FutureBuilder<List<CategoryDTO>>(
             future: _getVideoCategory(), // 获取视频分类
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.data!.isEmpty) {
+                  return const Center(
+                    child: Text("获取视频失败！！！"),
+                  );
+                }
                 return Tabbar();
               }
-              return Center(
-                child: Text("获取视频分类中！！！"),
+              return const Center(
+                child: Text("获取视频中！！！"),
               );
             },
           )),
     );
   }
 
-  Future<CategoryDTO> _getVideoCategory() async {
-    CategoryDTO categoryDTO = await getCategoryDTO();
-    dataCounterCounterPublic.tabListData = categoryDTO.categoryList!;
-    return categoryDTO;
+  Future<List<CategoryDTO>> _getVideoCategory() async {
+    // 获取视频分类
+    List<CategoryDTO> categoryDTOList = await getCategoryDTO();
+    List<Category> tabListData = [];
+    List<CategoryVideoVO> categoryVideoVOList = [];
+    categoryDTOList.forEach((e) {
+      Category category = new Category(e.id, e.name);
+      tabListData.add(category);
+
+      CategoryVideoVO categoryVideoVO = CategoryVideoVO(e.id, e.name);
+      VideoDTO videoDTO = e.videoDTO;
+      AjaxResult ajaxResult = AjaxResult();
+      categoryVideoVO.ajaxResult=ajaxResult;
+      ajaxResult.pageSize=videoDTO.pageSize;
+      ajaxResult.currentPage=videoDTO.currentPage;
+      ajaxResult.pageTotal=videoDTO.pageTotal;
+      List<Widget> widgetList = ajaxResult.widgetList;
+      videoDTO.VideoVOList.forEach((e) {
+        widgetList.add(VideoCover(e));
+      });
+      categoryVideoVOList.add(categoryVideoVO);
+    });
+    dataCounterCounterPublic.tabListData = tabListData;
+    dataCounterCounterPublic.categoryVideoVOList = categoryVideoVOList;
+    return categoryDTOList;
   }
 }

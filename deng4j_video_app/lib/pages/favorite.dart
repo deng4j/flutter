@@ -14,12 +14,7 @@ class _FavoritePageState extends State<FavoritePage> {
     return Center(
       child: ElevatedButton(
         onPressed: () {
-          dataCounterCounterPublic.addvideoCoverData({
-            "id": 9,
-            "name": '斗牌传说',
-            "imageUrl":
-                'https://tse2-mm.cn.bing.net/th/id/OIP-C.hIC1LTZMNViyb5JK0c4aGAAAAA?rs=1&pid=ImgDetMain',
-          });
+
         },
         child: Text("添加"),
       ),

@@ -22,10 +22,15 @@ class Myapp1 extends StatelessWidget {
     return Center(
       child: ClipOval(
         child: Image.network(
-          "https://ts1.cn.mm.bing.net/th/id/R-C.1fec32a89e9ba947eccc812e84b9efd0?rik=5DdZtgkwU17qgQ&riu=http%3a%2f%2fwww.kulemi.com%2fdl%2fproject%2fphoto%2f20200616%2f2020061610390259901685.jpg&ehk=kPdY6tB4bwQgbGa2TKSrf7kDQ0cMq5i6lUVnfvI75tE%3d&risl=&pid=ImgRaw&r=0",
+          "https://ts1.cn.mm.bing.net/th/id/R-C.1fec32a89e9ba947eccc812e84b9efd0?rik=5DdZtgkwU17qgQ&riu=http%3a%2f%2fwww.kulemi.com%2fdl%2fproject%2fphoto%2f20200616%2f2020061610390259901685.jpg",
           width: 150,
           height: 150,
           fit: BoxFit.cover,
+          //加载失败，默认显示图片
+          errorBuilder: (ctx, err, stackTrace) => Image.asset(
+              'images/20211209155714_88841.jpg',
+              height: 150,
+              width: 150),
         ),
       ),
     );

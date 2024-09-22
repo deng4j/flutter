@@ -1,14 +1,19 @@
+import 'package:dio/dio.dart';
+import 'package:douyin_app/configs/DioConfig.dart';
 import 'package:douyin_app/entity/dto/VideoDTO.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-//发送get请求
-Future GetVideoDTO(url) async {
-  var res = await http.get(Uri.parse(url), headers: {});
-  if (res.statusCode == 200) {
-    var body = json.decode(res.body);
-    return VideoDTO.fromJson(body);
-  } else {
-    return null;
+Future<VideoDTO> getVideoDTO(
+    int pageSize, int currentPage, int categoryId) async {
+  VideoDTO videoDTO = new VideoDTO();
+  try {
+    String baseUrl =
+        "/videos/list?pageSize=$pageSize&currentPage=$currentPage&categoryId=$categoryId";
+    Response response = await DioUtils.getDio().get(baseUrl);
+    videoDTO = VideoDTO.fromJson(response.data);
+    print(VideoDTO);
+    return videoDTO;
+  } catch (e) {
+    print(e);
   }
+  return videoDTO;
 }
