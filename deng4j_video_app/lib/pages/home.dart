@@ -6,6 +6,7 @@ import 'package:douyin_app/entity/dto/VideoDTO.dart';
 import 'package:douyin_app/entity/vo/CategoryVideoVO.dart';
 import 'package:douyin_app/httpController/categoryController.dart';
 import 'package:douyin_app/pages/videoCover.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Tabbar.dart';
 
@@ -38,17 +39,40 @@ class _HomePageState extends State<HomePage>
           child: FutureBuilder<List<CategoryDTO>>(
             future: _getVideoCategory(), // 获取视频分类
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center, // 次轴的排序方式
+                  mainAxisAlignment: MainAxisAlignment.center, // 主轴的排序方式
+                  children: [Text("获取分类中，请稍等"), CircularProgressIndicator()],
+                ));
+              } else if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.data!.isEmpty) {
-                  return const Center(
-                    child: Text("获取视频失败！！！"),
-                  );
+                  var that = this;
+                  return Center(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    // 次轴的排序方式
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    // 主轴的排序方式
+                    children: [
+                      Text("获取视频失败"),
+                      OutlinedButton(
+                          onPressed: () {
+                            that.setState(() {
+
+                            });
+                          },
+                          child: const Text("重新加载"))
+                    ],
+                  ));
                 }
                 return Tabbar();
+              } else {
+                return Center(
+                  child: Text("获取视频分类失败！！！"),
+                );
               }
-              return const Center(
-                child: Text("获取视频中！！！"),
-              );
             },
           )),
     );
@@ -66,10 +90,10 @@ class _HomePageState extends State<HomePage>
       CategoryVideoVO categoryVideoVO = CategoryVideoVO(e.id, e.name);
       VideoDTO videoDTO = e.videoDTO;
       AjaxResult ajaxResult = AjaxResult();
-      categoryVideoVO.ajaxResult=ajaxResult;
-      ajaxResult.pageSize=videoDTO.pageSize;
-      ajaxResult.currentPage=videoDTO.currentPage;
-      ajaxResult.pageTotal=videoDTO.pageTotal;
+      categoryVideoVO.ajaxResult = ajaxResult;
+      ajaxResult.pageSize = videoDTO.pageSize;
+      ajaxResult.currentPage = videoDTO.currentPage;
+      ajaxResult.pageTotal = videoDTO.pageTotal;
       List<Widget> widgetList = ajaxResult.widgetList;
       videoDTO.VideoVOList.forEach((e) {
         widgetList.add(VideoCover(e));
