@@ -1,6 +1,6 @@
-import 'package:douyin_app/data/tabbar_data.dart';
 import 'package:flutter/material.dart';
 
+// 收藏页面
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
 

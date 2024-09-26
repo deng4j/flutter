@@ -1,4 +1,4 @@
-import 'package:douyin_app/pages/Splash.dart';
+import 'package:douyin_app/pages/SplashPage.dart';
 import 'package:douyin_app/route/route.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: Splash(),
+        home: SplashPage(),
         initialRoute: '/',
         // 调用onGenerateRoute处理
         onGenerateRoute: onGenerateRoute);

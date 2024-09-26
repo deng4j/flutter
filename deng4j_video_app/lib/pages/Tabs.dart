@@ -1,7 +1,7 @@
 import 'package:douyin_app/entity/Iconfont.dart';
 import 'package:douyin_app/pages/VideoPage.dart';
-import 'package:douyin_app/pages/favorite.dart';
-import 'package:douyin_app/pages/home.dart';
+import 'package:douyin_app/pages/favoritePage.dart';
+import 'package:douyin_app/pages/homePage.dart';
 import 'package:douyin_app/utils/HexColorUtil.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +27,7 @@ class _TabsState extends State<Tabs> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        // 页面保持状态，必须用 PageView 加载不同的页面
+        // 防止重绘第一步，页面保持状态，必须用 PageView 加载不同的页面
         // 页面控制器
         controller: _pageController,
         // 切换页面

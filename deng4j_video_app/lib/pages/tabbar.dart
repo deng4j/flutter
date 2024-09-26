@@ -1,10 +1,13 @@
 import 'package:douyin_app/data/tabbar_data.dart';
+import 'package:douyin_app/pages/SearchPage.dart';
 import 'package:douyin_app/pages/videoCoverPages.dart';
+import 'package:douyin_app/widgets/FadeRoute.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../entity/Iconfont.dart';
 
+// 首页中的分类
 class Tabbar extends StatefulWidget {
   Tabbar();
 
@@ -16,22 +19,24 @@ class Tabbar extends StatefulWidget {
 
 // 混入TickerProviderStateMixin
 class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
-  TabController get_tabController({length}) {
-    // length要和页面数量一致
-    TabController _tabController = TabController(length: length, vsync: this);
-    _tabController.addListener(() {
-      if (_tabController.animation!.value == _tabController.index) {
-        print(_tabController.index); //获取点击或滑动页面的索引值
-      }
-    });
-    return _tabController;
-  }
-
   late DataCounter _dataCounter = dataCounterCounterPublic;
 
   late List<Widget> tabList;
   late List<Widget> contentList;
   late int tabLength;
+
+  TabController get_tabController({length}) {
+    // length要和页面数量一致
+    TabController _tabController = TabController(length: length, vsync: this);
+    _tabController.addListener(() {
+      if (_tabController.animation!.value == _tabController.index) {
+        print(_dataCounter.tabListData[_tabController.index].name +
+            "：" +
+            _tabController.index.toString()); //获取点击或滑动页面的索引值
+      }
+    });
+    return _tabController;
+  }
 
   @override
   void initState() {
@@ -72,7 +77,9 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
           width: queryData.size.width,
           height: 40,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, FadeRoute(page: SearchPage()));
+            },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center, // 次轴的排序方式
               mainAxisAlignment: MainAxisAlignment.start, // 主轴的排序方式

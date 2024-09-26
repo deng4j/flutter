@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../utils/keepAliveWrapper.dart';
-
 // 首页中每个分类的视频封面网格
 class VideoCoverPages extends StatefulWidget {
   Category category;
@@ -59,24 +57,21 @@ class _VideoCoverPagesState extends State<VideoCoverPages> {
 
   @override
   Widget build(BuildContext context) {
-    return KeepAliveWrapper(
-      // 页面缓存
-      child: RefreshIndicator(
-          // 设置下拉刷新组件
-          onRefresh: _onRefresh,
-          child: GridView.count(
-            controller: _scrollController,
-            //水平子 Widget 之间间距
-            crossAxisSpacing: 3.0,
-            //垂直子 Widget 之间间距
-            mainAxisSpacing: 10.0,
-            //一行的 Widget 数量
-            crossAxisCount: 3,
-            //宽度和高度的比例,0.735
-            childAspectRatio: 0.7,
-            children: _ajaxResult.widgetList,
-          )),
-    );
+    return RefreshIndicator(
+        // 设置下拉刷新组件
+        onRefresh: _onRefresh,
+        child: GridView.count(
+          controller: _scrollController,
+          //水平子 Widget 之间间距
+          crossAxisSpacing: 3.0,
+          //垂直子 Widget 之间间距
+          mainAxisSpacing: 10.0,
+          //一行的 Widget 数量
+          crossAxisCount: 3,
+          //宽度和高度的比例,0.735
+          childAspectRatio: 0.7,
+          children: _ajaxResult.widgetList,
+        ));
   }
 
   /// 上拉加载更多

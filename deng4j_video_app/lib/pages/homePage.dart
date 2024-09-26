@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Tabbar.dart';
 
+// 首页
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -17,14 +18,24 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-// 页面持久化，混入AutomaticKeepAliveClientMixin
+// // 防止重绘第二步，页面持久化，混入AutomaticKeepAliveClientMixin
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
+  late Future<List<CategoryDTO>> _futureData;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _futureData=_getVideoCategory();
+  }
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     // 获取屏幕尺寸
     MediaQueryData queryData = MediaQuery.of(context);
 
@@ -37,10 +48,10 @@ class _HomePageState extends State<HomePage>
           width: queryData.size.width,
           height: queryData.size.height,
           child: FutureBuilder<List<CategoryDTO>>(
-            future: _getVideoCategory(), // 获取视频分类
+            future: _futureData, // 获取视频分类
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center, // 次轴的排序方式
                   mainAxisAlignment: MainAxisAlignment.center, // 主轴的排序方式
@@ -60,7 +71,8 @@ class _HomePageState extends State<HomePage>
                       OutlinedButton(
                           onPressed: () {
                             that.setState(() {
-
+                              // 重新加载
+                              _futureData=_getVideoCategory();
                             });
                           },
                           child: const Text("重新加载"))
@@ -69,7 +81,7 @@ class _HomePageState extends State<HomePage>
                 }
                 return Tabbar();
               } else {
-                return Center(
+                return const Center(
                   child: Text("获取视频分类失败！！！"),
                 );
               }
@@ -78,13 +90,14 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  // 初始化数据
   Future<List<CategoryDTO>> _getVideoCategory() async {
     // 获取视频分类
     List<CategoryDTO> categoryDTOList = await getCategoryDTO();
     List<Category> tabListData = [];
     List<CategoryVideoVO> categoryVideoVOList = [];
     categoryDTOList.forEach((e) {
-      Category category = new Category(e.id, e.name);
+      Category category = Category(e.id, e.name);
       tabListData.add(category);
 
       CategoryVideoVO categoryVideoVO = CategoryVideoVO(e.id, e.name);

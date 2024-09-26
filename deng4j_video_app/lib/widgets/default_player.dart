@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:video_player/video_player.dart';
 
-
+// 视频播放组件
 class DefaultPlayer extends StatefulWidget {
   String videoUrl ;
   DefaultPlayer(this.videoUrl, {Key? key}) : super(key: key);

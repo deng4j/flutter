@@ -1,7 +1,8 @@
-import 'package:douyin_app/pages/default_player.dart';
+import 'package:douyin_app/widgets/default_player.dart';
 import 'package:douyin_app/utils/HexColorUtil.dart';
 import 'package:flutter/material.dart';
 
+// 视频详情页面
 class VideoDetailPage extends StatefulWidget {
   final Map arguments;
 
