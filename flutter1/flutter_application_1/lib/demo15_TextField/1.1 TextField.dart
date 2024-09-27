@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// TextField在有值的情况下再次获取焦点有个水滴的问题，是由于触发了 Android 的文本框的粘贴、选择复制等操作。
 main() {
   runApp(MaterialApp(
     home: Scaffold(

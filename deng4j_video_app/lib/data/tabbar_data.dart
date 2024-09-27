@@ -15,6 +15,8 @@ class DataCounter extends ChangeNotifier {
 
   List<CategoryVideoVO> _categoryVideoVOList = [];
 
+  List<Widget> _searchPageVideoCoverWidgetTempList = [];
+
   List<Category> get tabListData => _tabListData;
 
   set tabListData(List<Category> value) {
@@ -25,6 +27,14 @@ class DataCounter extends ChangeNotifier {
 
   set categoryVideoVOList(List<CategoryVideoVO> value) {
     _categoryVideoVOList = value;
+  }
+
+
+  List<Widget> get searchPageVideoCoverWidgetTempList =>
+      _searchPageVideoCoverWidgetTempList;
+
+  set searchPageVideoCoverWidgetTempList(List<Widget> value) {
+    _searchPageVideoCoverWidgetTempList = value;
   }
 
   addTabBarData(Category category) {

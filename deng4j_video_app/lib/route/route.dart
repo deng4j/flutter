@@ -10,7 +10,7 @@ import '../pages/VideoDetailPage.dart';
 final Map<String, Function> routes = {
   '/': (contxt) => SplashPage(),
   '/tabs': (contxt) => const Tabs(),
-  '/searchPage': (contxt) => FadeRoute(page: const SearchPage()),
+  '/searchPage': (contxt) => FadeRoute(page:  SearchPage()),
   '/video_detail_page': (contxt, {arguments}) =>
       VideoDetailPage(arguments: arguments),
 };
