@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:douyin_app/configs/DioConfig.dart';
 import 'package:douyin_app/entity/dto/VideoDTO.dart';
+import 'package:douyin_app/entity/dto/VideoDetailDTO.dart';
 import 'package:douyin_app/entity/vo/VideoVO.dart';
 
 Future<VideoDTO> getVideoDTO(
@@ -36,4 +37,19 @@ Future<List<VideoVO>> searchList(
     print(e);
   }
   return videoVOList;
+}
+
+Future<VideoDetailDTO> getVideoDetailById(int id) async {
+  late VideoDetailDTO videoDetailDTO = VideoDetailDTO();
+  try {
+    String url = "/videos/$id";
+    Response response = await DioUtils.getDio().get(url);
+    var data = response.data;
+    videoDetailDTO = VideoDetailDTO.fromJson(data);
+    print(videoDetailDTO);
+    return videoDetailDTO;
+  } catch (e) {
+    print(e);
+  }
+  return videoDetailDTO;
 }

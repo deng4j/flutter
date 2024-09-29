@@ -29,7 +29,7 @@ class _TabsState extends State<SearchPage> {
 
   @override
   void initState() {
-    _futureData = _searchByContent("");
+    _futureData = _searchEmpty();
     super.initState();
   }
 
@@ -37,72 +37,71 @@ class _TabsState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            automaticallyImplyLeading: false,
+            // automaticallyImplyLeading: false,
             title: SizedBox(
-              height: 40,
-              child: Flex(
-                direction: Axis.horizontal,
-                children: <Widget>[
-                  Expanded(
-                    flex: 10,
-                    child: Container(
-                      height: 40.0,
-                      // 输入框
-                      child: Autocomplete<VideoVO>(
-                        optionsBuilder: buildOptions,
-                        onSelected: onSelected,
-                        optionsViewBuilder: _buildOptionsView,
-                        fieldViewBuilder: _buildFieldView,
-                        displayStringForOption: (videoVO) => videoVO.name,
-                      ),
-                    ),
+          height: 40,
+          child: Flex(
+            direction: Axis.horizontal,
+            children: <Widget>[
+              Expanded(
+                flex: 10,
+                child: Container(
+                  height: 40.0,
+                  // 输入框
+                  child: Autocomplete<VideoVO>(
+                    optionsBuilder: buildOptions,
+                    onSelected: onSelected,
+                    optionsViewBuilder: _buildOptionsView,
+                    fieldViewBuilder: _buildFieldView,
+                    displayStringForOption: (videoVO) => videoVO.name,
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      height: 40.0,
-                      // 搜索按钮
-                      child: MyTextButton(
-                        onPressed: () {
-                          _futureData =
-                              _searchByContent(_textEditingController.text);
-                          setState(() {});
-                        },
-                        child: Text("搜索"),
-                        style: ButtonStyle(
-                          // 设置文字颜色
-                          foregroundColor: MaterialStateProperty.resolveWith(
-                            (states) {
-                              if (states.contains(MaterialState.focused) &&
-                                  !states.contains(MaterialState.pressed)) {
-                                //获取焦点时的颜色
-                                return null;
-                              } else if (states
-                                  .contains(MaterialState.pressed)) {
-                                //按下时的文字颜色
-                                return Colors.black;
-                              }
-                              //默认状态使用灰色
-                              return Colors.black;
-                            },
-                          ),
-                          //背景颜色
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith((states) {
-                            //设置按下时的背景颜色
-                            if (states.contains(MaterialState.pressed)) {
-                              return Theme.of(context).colorScheme.background;
-                            }
-                            //默认不使用背景颜色
-                            return null;
-                          }),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            )),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 40.0,
+                  // 搜索按钮
+                  child: MyTextButton(
+                    onPressed: () {
+                      _futureData =
+                          _searchByContent(_textEditingController.text);
+                      setState(() {});
+                    },
+                    child: Text("搜索"),
+                    style: ButtonStyle(
+                      // 设置文字颜色
+                      foregroundColor: MaterialStateProperty.resolveWith(
+                        (states) {
+                          if (states.contains(MaterialState.focused) &&
+                              !states.contains(MaterialState.pressed)) {
+                            //获取焦点时的颜色
+                            return null;
+                          } else if (states.contains(MaterialState.pressed)) {
+                            //按下时的文字颜色
+                            return Colors.black;
+                          }
+                          //默认状态使用灰色
+                          return Colors.black;
+                        },
+                      ),
+                      //背景颜色
+                      backgroundColor:
+                          MaterialStateProperty.resolveWith((states) {
+                        //设置按下时的背景颜色
+                        if (states.contains(MaterialState.pressed)) {
+                          return Theme.of(context).colorScheme.background;
+                        }
+                        //默认不使用背景颜色
+                        return null;
+                      }),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )),
         body: GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () {
@@ -124,26 +123,7 @@ class _TabsState extends State<SearchPage> {
                   ));
                 } else if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.data!.isEmpty) {
-                    var that = this;
-                    return Center(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      // 次轴的排序方式
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      // 主轴的排序方式
-                      children: [
-                        Text("获取视频失败"),
-                        OutlinedButton(
-                            onPressed: () {
-                              that.setState(() {
-                                // 重新加载
-                                _futureData = _searchByContent(
-                                    _textEditingController.text);
-                              });
-                            },
-                            child: const Text("重新加载"))
-                      ],
-                    ));
+                    return Center(child: null);
                   }
                   return VideoCoverPages(_textEditingController.text,
                       _searchPageVideoCoverWidgetTempList);
@@ -328,6 +308,11 @@ class _TabsState extends State<SearchPage> {
   //------------------------------Autocomplete end----------------------------------
 
 //------------------------------body end----------------------------------
+
+  Future<List<VideoVO>> _searchEmpty() async {
+    await Future.delayed(Duration(milliseconds: 10));
+    return [];
+  }
 
   Future<List<VideoVO>> _searchByContent(String args) async {
     // 网络请求

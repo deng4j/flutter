@@ -53,15 +53,15 @@ class _SplashState extends State<SplashPage> {
                 ],
               ));
             }
-
             // 开始倒计时
             countDown();
             return Stack(
               children: <Widget>[
-                Container(
+                ConstrainedBox(
+                  constraints: BoxConstraints.expand(), // 自适应屏幕
                   child: Image.asset(
-                    "images/launch.png",
-                    fit: BoxFit.fill,
+                    "images/default_cover.png",
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Container(
