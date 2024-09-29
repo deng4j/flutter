@@ -4,11 +4,11 @@ import 'package:douyin_app/entity/dto/VideoDTO.dart';
 import 'package:douyin_app/entity/vo/VideoVO.dart';
 
 Future<VideoDTO> getVideoDTO(
-    int pageSize, int currentPage, int categoryId) async {
+    int currentPage, int pageSize, int categoryId) async {
   VideoDTO videoDTO = new VideoDTO();
   try {
     String baseUrl =
-        "/videos/list?pageSize=$pageSize&currentPage=$currentPage&categoryId=$categoryId";
+        "/videos/list?currentPage=$currentPage&pageSize=$pageSize&categoryId=$categoryId";
     Response response = await DioUtils.getDio().get(baseUrl);
     videoDTO = VideoDTO.fromJson(response.data);
     print(VideoDTO);
@@ -19,10 +19,12 @@ Future<VideoDTO> getVideoDTO(
   return videoDTO;
 }
 
-Future<List<VideoVO>> searchList(String content) async {
+Future<List<VideoVO>> searchList(
+    int currentPage, int pageSize, String content) async {
   List<VideoVO> videoVOList = [];
   try {
-    String baseUrl = "/videos/searchList?content=$content";
+    String baseUrl =
+        "/videos/searchList?currentPage=$currentPage&pageSize=$pageSize&content=$content";
     Response response = await DioUtils.getDio().get(baseUrl);
     var data = response.data;
     data.forEach((e) {

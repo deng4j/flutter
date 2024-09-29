@@ -26,33 +26,40 @@ class _VideoCoverState extends State<VideoCover> {
               });
         },
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center, // 次轴的排序方式
+          mainAxisAlignment: MainAxisAlignment.start, // 主轴的排序方式
           children: [
-            Card(
-              elevation: 6, //设置卡片的阴影大小
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: AspectRatio(
-                    aspectRatio: 0.75, // 设置宽高比
-                    child: Image.network(
-                      widget._value.imageUrl.toString(),
-                      fit: BoxFit.cover,
-                      //加载失败，默认显示图片
-                      errorBuilder: (ctx, err, stackTrace) => Image.asset(
-                        'images/notfindIMG.png',
-                      ),
-                    )),
+            Expanded(
+              flex: 10,
+              child: Card(
+                elevation: 6, //设置卡片的阴影大小
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: AspectRatio(
+                      aspectRatio: 16 / 9, // 设置宽高比
+                      child: Image.network(
+                        widget._value.imageUrl.toString(),
+                        fit: BoxFit.cover,
+                        //加载失败，默认显示图片
+                        errorBuilder: (ctx, err, stackTrace) => Image.asset(
+                          'images/notfindIMG.png',
+                        ),
+                      )),
+                ),
               ),
             ),
-            Container(
-              height: 20,
-              child: Text(
-                widget._value.name.toString(),
-                textAlign: TextAlign.center,
-                softWrap: true,
-                maxLines: 2,
-                style: const TextStyle(fontSize: 13),
-              ),
-            ),
+            Expanded(
+                flex: 1,
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: double.infinity,
+                  ),
+                  child: Text(
+                    widget._value.name.toString(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 10),
+                  ),
+                )),
           ],
         ));
   }

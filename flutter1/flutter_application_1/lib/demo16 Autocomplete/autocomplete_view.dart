@@ -26,7 +26,6 @@ main() {
 }
 
 class AutocompletePage extends StatefulWidget {
-
   AutocompletePage({super.key});
 
   @override
@@ -34,7 +33,6 @@ class AutocompletePage extends StatefulWidget {
 }
 
 class _AutocompletePageState extends State<AutocompletePage> {
-
   TextEditingController _textEditingController = TextEditingController();
 
   FocusNode _focusNode = FocusNode();
@@ -48,6 +46,7 @@ class _AutocompletePageState extends State<AutocompletePage> {
         height: 300,
         child: Scaffold(
           appBar: AppBar(
+            // 取消返回键
             automaticallyImplyLeading: false,
             title: buildAutoComplete(),
           ),

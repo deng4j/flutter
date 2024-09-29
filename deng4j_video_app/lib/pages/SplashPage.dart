@@ -9,14 +9,53 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashState extends State<SplashPage> {
+  late Future<String> _futureData;
+
+  @override
+  void initState() {
+    _futureData = scanServerIP();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<String>(
         // 获取ip成功才加载首页
-        future: scanServerIP(), // 查找服务端ip
+        future: _futureData, // 查找服务端ip
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center, // 次轴的排序方式
+              mainAxisAlignment: MainAxisAlignment.center, // 主轴的排序方式
+              children: [Text("尝试连接服务器中，请稍等"), CircularProgressIndicator()],
+            ));
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.data == "") {
+              var that = this;
+              return Center(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                // 次轴的排序方式
+                mainAxisAlignment: MainAxisAlignment.center,
+                // 主轴的排序方式
+                children: [
+                  Text("连接服务器失败"),
+                  OutlinedButton(
+                      onPressed: () {
+                        that.setState(() {
+                          // 重新加载
+                          _futureData = scanServerIP();
+                        });
+                      },
+                      child: const Text("重新加载"))
+                ],
+              ));
+            }
+
+            // 开始倒计时
+            countDown();
             return Stack(
               children: <Widget>[
                 Container(
@@ -41,20 +80,14 @@ class _SplashState extends State<SplashPage> {
                 ),
               ],
             );
+          } else {
+            return Center(
+              child: Text("获取本地ip失败，请确保手机与电脑在同一WIFI"),
+            );
           }
-          return Center(
-            child: Text("获取本地ip失败，请尝试重启!"),
-          );
         },
       ),
     );
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    countDown();
   }
 
   // 倒计时
@@ -64,6 +97,6 @@ class _SplashState extends State<SplashPage> {
   }
 
   void goTabsPage() {
-    Navigator.pushReplacementNamed(context, '/tabs');
+    Navigator.pushReplacementNamed(context, '/tabBarAppBottom');
   }
 }

@@ -1,44 +1,42 @@
-import 'package:douyin_app/data/tabbar_data.dart';
-import 'package:douyin_app/entity/AjaxResult.dart';
-import 'package:douyin_app/entity/category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 // 首页中每个分类的视频封面网格
 class VideoCoverPages extends StatefulWidget {
-  Category category;
+  // 搜索参数
+  String _scrollRefreshArg;
+  List<Widget> _widgetList;
 
-  VideoCoverPages(this.category, {super.key});
+  VideoCoverPages(this._scrollRefreshArg, this._widgetList, {super.key});
 
   @override
   State<VideoCoverPages> createState() => _VideoCoverPagesState();
 }
 
-class _VideoCoverPagesState extends State<VideoCoverPages> {
-  late AjaxResult _ajaxResult;
+class _VideoCoverPagesState extends State<VideoCoverPages>
+    with AutomaticKeepAliveClientMixin {
+  late String _scrollRefreshArg;
+  late List<Widget> _widgetList;
 
   // 滚动控制器
   ScrollController _scrollController = ScrollController();
 
-  void _getCoverList() {
-    Category category = widget.category;
-    dataCounterCounterPublic.categoryVideoVOList.forEach((e) {
-      if (e.categoryId == category.id) {
-        _ajaxResult = e.ajaxResult;
-      }
-    });
-  }
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
-    _getCoverList();
+    _scrollRefreshArg = widget._scrollRefreshArg;
+    _widgetList = widget._widgetList;
 
     // 为滚动控制器添加监听
     _scrollController.addListener(() {
-      // _scrollController.position.pixels 是当前像素点位置
-      // _scrollController.position.maxScrollExtent 当前列表最大可滚动位置
+      /**
+       * _scrollController.position.pixels 是当前像素点位置
+       * _scrollController.position.maxScrollExtent 当前列表最大可滚动位置
+       */
       // 如果二者相等 , 那么就触发上拉加载更多机制
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
@@ -70,7 +68,7 @@ class _VideoCoverPagesState extends State<VideoCoverPages> {
           crossAxisCount: 3,
           //宽度和高度的比例,0.735
           childAspectRatio: 0.7,
-          children: _ajaxResult.widgetList,
+          children: _widgetList,
         ));
   }
 

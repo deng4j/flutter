@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import '../entity/Iconfont.dart';
 
 // 首页中的分类
-class Tabbar extends StatefulWidget {
-  Tabbar();
+class TabBarHomeTop extends StatefulWidget {
+  TabBarHomeTop();
 
   @override
   State<StatefulWidget> createState() {
@@ -18,12 +18,15 @@ class Tabbar extends StatefulWidget {
 }
 
 // 混入TickerProviderStateMixin
-class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
+class _TabsState extends State<TabBarHomeTop> with TickerProviderStateMixin {
   late DataCounter _dataCounter = dataCounterCounterPublic;
 
   late List<Widget> tabList;
-  late List<Widget> contentList;
+  List<Widget> contentList = [];
   late int tabLength;
+
+  int _currentIndex = 0;
+  var _pageController;
 
   TabController get_tabController({length}) {
     // length要和页面数量一致
@@ -40,23 +43,25 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    super.initState();
-    // tabbar初始化数据
+    // 初始化数据
     initTabList();
-    // 监听数据变化
-    _dataCounter.addListener(() {
-      //数值改变的监听
-      // initTabList();
-    });
+
+    _pageController = PageController(initialPage: _currentIndex);
+    super.initState();
   }
 
   void initTabList() {
     tabList = _dataCounter.tabListData.map((e) {
       return Tab(child: Text(e.name));
     }).toList();
-    contentList = _dataCounter.tabListData.map((e) {
-      return VideoCoverPages(e);
-    }).toList();
+    _dataCounter.tabListData.forEach((category) {
+      _dataCounter.categoryVideoVOList.forEach((categoryVideoVO) {
+        if (categoryVideoVO.categoryId == category.id) {
+          contentList
+              .add(VideoCoverPages("", categoryVideoVO.ajaxResult.widgetList));
+        }
+      });
+    });
     tabLength = _dataCounter.tabListData.length;
   }
 
@@ -84,7 +89,10 @@ class _TabsState extends State<Tabbar> with TickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.center, // 次轴的排序方式
               mainAxisAlignment: MainAxisAlignment.start, // 主轴的排序方式
               children: const [
-                Icon(Iconfont.sousuo),
+                Icon(
+                  Iconfont.sousuo,
+                  color: Colors.grey,
+                ),
                 Text(
                   " 输入演员或名字搜索",
                   style: TextStyle(color: Colors.grey),

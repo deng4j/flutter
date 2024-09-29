@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 /**
+ * (强烈推荐使用Expanded配合弹性布局)
  * Expanded Widget 会尽可能地扩展子组件的大小，以使其占据父组件的所有可用空间。
  */
 main() {

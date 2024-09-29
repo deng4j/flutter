@@ -8,7 +8,7 @@ import 'package:douyin_app/httpController/categoryController.dart';
 import 'package:douyin_app/pages/videoCover.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Tabbar.dart';
+import 'TabBar_HomeTop.dart';
 
 // 首页
 class HomePage extends StatefulWidget {
@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-// // 防止重绘第二步，页面持久化，混入AutomaticKeepAliveClientMixin
+// 防止重绘第二步，页面持久化，混入AutomaticKeepAliveClientMixin
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
   @override
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage>
                     ],
                   ));
                 }
-                return Tabbar();
+                return TabBarHomeTop();
               } else {
                 return const Center(
                   child: Text("获取视频分类失败！！！"),

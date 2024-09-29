@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/**
+ * 一般想动态的修改小部件的的状态的话，那么你要实现小部件继承StatefulWidget，而不是StatelessWidget，
+ * 然后改变组件的属性，只要调用SetState方法就可以了
+ */
 main() {
   runApp(MaterialApp(
     home: Scaffold(
@@ -41,16 +45,14 @@ class _HomePageState extends State<HomePage> {
           ),
           ElevatedButton(
               onPressed: () {
-                setState(() {
-                  countNum++;
-                });
+                countNum++;
+                setState(() {}); // 刷新
               },
               child: Text("增加")),
           ElevatedButton(
               onPressed: () {
-                setState(() {
-                  countNum--;
-                });
+                countNum--;
+                setState(() {}); // 刷新
               },
               child: Text("减小")),
         ],

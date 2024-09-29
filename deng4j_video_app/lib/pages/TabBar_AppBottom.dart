@@ -5,14 +5,14 @@ import 'package:douyin_app/pages/homePage.dart';
 import 'package:douyin_app/utils/HexColorUtil.dart';
 import 'package:flutter/material.dart';
 
-class Tabs extends StatefulWidget {
-  const Tabs({super.key});
+class TabBarAppBottom extends StatefulWidget {
+  const TabBarAppBottom({super.key});
 
   @override
-  State<Tabs> createState() => _TabsState();
+  State<TabBarAppBottom> createState() => _TabsState();
 }
 
-class _TabsState extends State<Tabs> {
+class _TabsState extends State<TabBarAppBottom> {
   int _currentIndex = 0;
   var _pageController;
   final List<Widget> _pages = const [HomePage(), VideoPage(), FavoritePage()];

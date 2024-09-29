@@ -1,6 +1,6 @@
 import 'package:douyin_app/pages/SearchPage.dart';
 import 'package:douyin_app/pages/SplashPage.dart';
-import 'package:douyin_app/pages/Tabs.dart';
+import 'package:douyin_app/pages/TabBar_AppBottom.dart';
 import 'package:douyin_app/widgets/FadeRoute.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ import '../pages/VideoDetailPage.dart';
 
 final Map<String, Function> routes = {
   '/': (contxt) => SplashPage(),
-  '/tabs': (contxt) => const Tabs(),
+  '/tabBarAppBottom': (contxt) => const TabBarAppBottom(),
   '/searchPage': (contxt) => FadeRoute(page:  SearchPage()),
   '/video_detail_page': (contxt, {arguments}) =>
       VideoDetailPage(arguments: arguments),

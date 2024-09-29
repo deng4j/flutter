@@ -1,5 +1,6 @@
 // 或者通过传递一个 `options`来创建dio实例
 import 'package:dio/dio.dart';
+import 'package:douyin_app/data/Instance.dart';
 
 class CustomInterceptor extends Interceptor {
   @override
@@ -62,8 +63,9 @@ class DioUtils {
   static DioUtils? _dioUtils;
 
   DioUtils() {
+    String serverHost = Instance.serverHost;
     BaseOptions options = BaseOptions(
-      baseUrl: "http://192.168.136.1:8080/",
+      baseUrl: "http://$serverHost:8080/",
       connectTimeout: Duration(seconds: 180),
       receiveTimeout: Duration(seconds: 180),
     );
