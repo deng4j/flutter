@@ -1,4 +1,5 @@
 import 'package:douyin_app/data/tabbar_data.dart';
+import 'package:douyin_app/entity/dto/VideoSearchDTO.dart';
 import 'package:douyin_app/pages/SearchPage.dart';
 import 'package:douyin_app/pages/videoCoverPages.dart';
 import 'package:douyin_app/widgets/FadeRoute.dart';
@@ -25,9 +26,6 @@ class _TabsState extends State<TabBarHomeTop> with TickerProviderStateMixin {
   List<Widget> contentList = [];
   late int tabLength;
 
-  int _currentIndex = 0;
-  var _pageController;
-
   TabController get_tabController({length}) {
     // length要和页面数量一致
     TabController _tabController = TabController(length: length, vsync: this);
@@ -45,8 +43,6 @@ class _TabsState extends State<TabBarHomeTop> with TickerProviderStateMixin {
   void initState() {
     // 初始化数据
     initTabList();
-
-    _pageController = PageController(initialPage: _currentIndex);
     super.initState();
   }
 
@@ -57,8 +53,9 @@ class _TabsState extends State<TabBarHomeTop> with TickerProviderStateMixin {
     _dataCounter.tabListData.forEach((category) {
       _dataCounter.categoryVideoVOList.forEach((categoryVideoVO) {
         if (categoryVideoVO.categoryId == category.id) {
-          contentList
-              .add(VideoCoverPages("", categoryVideoVO.ajaxResult.widgetList));
+          contentList.add(VideoCoverPages(
+              VideoSearchDTO.categorySearch(1, 12, category.id.toString()),
+              categoryVideoVO.ajaxResult.widgetList));
         }
       });
     });

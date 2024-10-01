@@ -21,11 +21,11 @@ Future<VideoDTO> getVideoDTO(
 }
 
 Future<List<VideoVO>> searchList(
-    int currentPage, int pageSize, String content) async {
+    int currentPage, int pageSize,String categoryId, String content) async {
   List<VideoVO> videoVOList = [];
   try {
     String baseUrl =
-        "/videos/searchList?currentPage=$currentPage&pageSize=$pageSize&content=$content";
+        "/videos/searchList?currentPage=$currentPage&pageSize=$pageSize&content=$content&categoryId=$categoryId";
     Response response = await DioUtils.getDio().get(baseUrl);
     var data = response.data;
     data.forEach((e) {

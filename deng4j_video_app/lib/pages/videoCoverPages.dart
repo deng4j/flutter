@@ -1,3 +1,7 @@
+import 'package:douyin_app/entity/dto/VideoSearchDTO.dart';
+import 'package:douyin_app/entity/vo/VideoVO.dart';
+import 'package:douyin_app/httpController/videoController.dart';
+import 'package:douyin_app/pages/videoCover.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -5,10 +9,10 @@ import 'package:flutter/widgets.dart';
 // 首页中每个分类的视频封面网格
 class VideoCoverPages extends StatefulWidget {
   // 搜索参数
-  String _scrollRefreshArg;
+  VideoSearchDTO _videoSearchDTO;
   List<Widget> _widgetList;
 
-  VideoCoverPages(this._scrollRefreshArg, this._widgetList, {super.key});
+  VideoCoverPages(this._videoSearchDTO, this._widgetList, {super.key});
 
   @override
   State<VideoCoverPages> createState() => _VideoCoverPagesState();
@@ -16,7 +20,7 @@ class VideoCoverPages extends StatefulWidget {
 
 class _VideoCoverPagesState extends State<VideoCoverPages>
     with AutomaticKeepAliveClientMixin {
-  late String _scrollRefreshArg;
+  late VideoSearchDTO _videoSearchDTO;
   late List<Widget> _widgetList;
 
   // 滚动控制器
@@ -28,7 +32,7 @@ class _VideoCoverPagesState extends State<VideoCoverPages>
   @override
   void initState() {
     super.initState();
-    _scrollRefreshArg = widget._scrollRefreshArg;
+    _videoSearchDTO = widget._videoSearchDTO;
     _widgetList = widget._widgetList;
 
     // 为滚动控制器添加监听
@@ -74,24 +78,46 @@ class _VideoCoverPagesState extends State<VideoCoverPages>
 
   /// 上拉加载更多
   _loadMore() async {
-    /// 强制休眠 1 秒
-    await Future.delayed(Duration(seconds: 1));
+    VideoSearchDTO videoSearchDTO = VideoSearchDTO.copy(_videoSearchDTO);
+    videoSearchDTO.currentPage += 1;
+    List<VideoVO> videoVOList = await _searchVideoVO(videoSearchDTO);
+    if (videoVOList.isEmpty) return;
+    _videoSearchDTO.currentPage = _videoSearchDTO.currentPage + 1;
+    videoVOList.forEach((e) {
+      _widgetList.add(VideoCover(e));
+    });
 
     /// 更新 UI
     setState(() {
       print("上拉加载更多");
     });
+    await Future.delayed(Duration(milliseconds: 50));
   }
 
   /// 下拉刷新回调方法
-  Future<Null> _onRefresh() async {
-    /// 强制休眠 1 秒
-    await Future.delayed(Duration(seconds: 1));
+  Future<String> _onRefresh() async {
+    _videoSearchDTO.currentPage = 1;
+    List<VideoVO> videoVOList = await _searchVideoVO(_videoSearchDTO);
+    _widgetList.clear();
+    videoVOList.forEach((e) {
+      _widgetList.add(VideoCover(e));
+    });
 
     /// 更新状态
     setState(() {
       print("下拉刷新回调方法");
     });
-    return null;
+    await Future.delayed(Duration(milliseconds: 50));
+    return "ok";
+  }
+
+  Future<List<VideoVO>> _searchVideoVO(VideoSearchDTO videoSearchDTO) async {
+    // 网络请求
+    List<VideoVO> videoVOList = await searchList(
+        videoSearchDTO.currentPage,
+        videoSearchDTO.pageSize,
+        videoSearchDTO.categoryId,
+        videoSearchDTO.content);
+    return videoVOList;
   }
 }
