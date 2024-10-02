@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 
-var NAMES = ['宋江', '卢俊义', '吴用', '公孙胜', '关胜', '林冲', '秦明', '呼延灼', '花荣', '柴进'];
-
-/// ListView 垂直列表
-/// RefreshIndicator 下拉刷新
-/// ScrollController 上拉加载更多
 void main() {
   runApp(MyApp());
 }
@@ -19,6 +14,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   /// 滚动控制器
   ScrollController _scrollController = ScrollController();
+
+  List<int> NAMES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   @override
   void initState() {
@@ -41,23 +38,6 @@ class _MyAppState extends State<MyApp> {
     /// 销毁 滚动控制器 ScrollController
     _scrollController.dispose();
     super.dispose();
-  }
-
-  /// 上拉加载更多
-  _loadMore() async {
-    /// 强制休眠 1 秒
-    await Future.delayed(Duration(seconds: 1));
-
-    /// 更新 UI , 再次复制一份数据 , 放入到集合中
-    setState(() {
-      /// 复制一份 NAMES 集合
-      List<String> nameList = List<String>.from(NAMES);
-
-      /// 再次将 NAMES 集合合并到被复制的集合中
-      ///   此时该集合中就会出现两个 NAMES 集合
-      nameList.addAll(NAMES);
-      NAMES = nameList;
-    });
   }
 
   @override
@@ -87,6 +67,23 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  /// 上拉加载更多
+  _loadMore() async {
+    /// 强制休眠 1 秒
+    await Future.delayed(Duration(seconds: 1));
+
+    for (int i = 1; i <= 10; i++) {
+      NAMES.add(NAMES[NAMES.length-1] + 1);
+    }
+
+    /// 更新 UI
+    setState(() {});
+
+    // 跳转到指定位置
+    _scrollController.animateTo(_scrollController.position.pixels + 200,
+        duration: Duration(milliseconds: 2000), curve: Curves.easeOutExpo);
+  }
+
   /// 下拉刷新回调方法
   Future<Null> _onRefresh() async {
     /// 强制休眠 1 秒
@@ -112,7 +109,7 @@ class _MyAppState extends State<MyApp> {
       alignment: Alignment.center,
       decoration: BoxDecoration(color: Colors.black),
       child: Text(
-        name,
+        name.toString(),
         style: TextStyle(color: Colors.yellowAccent, fontSize: 20),
       ),
     );
