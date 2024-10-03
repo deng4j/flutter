@@ -26,11 +26,10 @@ class _HomePageState extends State<HomePage>
 
   late Future<List<CategoryDTO>> _futureData;
 
-
   @override
   void initState() {
     super.initState();
-    _futureData=_getVideoCategory();
+    _futureData = _getVideoCategory();
   }
 
   @override
@@ -72,7 +71,7 @@ class _HomePageState extends State<HomePage>
                           onPressed: () {
                             that.setState(() {
                               // 重新加载
-                              _futureData=_getVideoCategory();
+                              _futureData = _getVideoCategory();
                             });
                           },
                           child: const Text("重新加载"))
@@ -95,10 +94,12 @@ class _HomePageState extends State<HomePage>
     // 获取视频分类
     List<CategoryDTO> categoryDTOList = await getCategoryDTO();
     List<Category> tabListData = [];
+    Map<String, String> tabListMap = {};
     List<CategoryVideoVO> categoryVideoVOList = [];
     categoryDTOList.forEach((e) {
       Category category = Category(e.id, e.name);
       tabListData.add(category);
+      tabListMap[e.id.toString()] = e.name;
 
       CategoryVideoVO categoryVideoVO = CategoryVideoVO(e.id, e.name);
       VideoDTO videoDTO = e.videoDTO;
@@ -114,6 +115,7 @@ class _HomePageState extends State<HomePage>
       categoryVideoVOList.add(categoryVideoVO);
     });
     dataCounterCounterPublic.tabListData = tabListData;
+    dataCounterCounterPublic.tabListMap=tabListMap;
     dataCounterCounterPublic.categoryVideoVOList = categoryVideoVOList;
     return categoryDTOList;
   }

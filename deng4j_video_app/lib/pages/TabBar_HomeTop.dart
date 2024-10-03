@@ -20,7 +20,7 @@ class TabBarHomeTop extends StatefulWidget {
 
 // 混入TickerProviderStateMixin
 class _TabsState extends State<TabBarHomeTop> with TickerProviderStateMixin {
-  late DataCounter _dataCounter = dataCounterCounterPublic;
+  final DataCounter _dataCounter = dataCounterCounterPublic;
 
   late List<Widget> tabList;
   List<Widget> contentList = [];

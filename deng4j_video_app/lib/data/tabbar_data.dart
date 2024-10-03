@@ -6,12 +6,18 @@ import '../entity/category.dart';
 /**
  * 设置监听数据
  */
-class DataCounter extends ChangeNotifier {
+class DataCounter{
   List<Category> _tabListData = [
     Category(1, "国产"),
     Category(2, "欧美"),
     Category(3, "日本"),
   ];
+
+  Map<String, String> _tabListMap = {
+    "1": "国产",
+    "2": "欧美",
+    "3": "日本",
+  };
 
   List<CategoryVideoVO> _categoryVideoVOList = [];
 
@@ -27,15 +33,12 @@ class DataCounter extends ChangeNotifier {
     _categoryVideoVOList = value;
   }
 
-  addTabBarData(Category category) {
-    _tabListData.add(category);
-    notifyListeners();
-  }
 
-  addvideoCoverData(CategoryVideoVO categoryVideoVO) {
-    _categoryVideoVOList.add(categoryVideoVO);
-    notifyListeners();
+  Map<String, String> get tabListMap => _tabListMap;
+
+  set tabListMap(Map<String, String> value) {
+    _tabListMap = value;
   }
 }
 
-DataCounter dataCounterCounterPublic = DataCounter();
+final DataCounter dataCounterCounterPublic = DataCounter();

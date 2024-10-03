@@ -25,6 +25,7 @@ class _VideoCoverPagesState extends State<VideoCoverPages>
   late VideoSearchDTO _videoSearchDTO;
   late List<Widget> _widgetList;
   bool _isLoadMore = false;
+  bool _isEmpty = false;
 
   // 滚动控制器
   ScrollController _scrollController = ScrollController();
@@ -94,7 +95,7 @@ class _VideoCoverPagesState extends State<VideoCoverPages>
                 child: Container(
                   padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: Center(
-                    child: Text("正在加载中"),
+                    child: _isEmpty ? Text("已经到底了") : Text("正在加载中"),
                   ),
                 ),
                 visible: _isLoadMore,
@@ -117,11 +118,16 @@ class _VideoCoverPagesState extends State<VideoCoverPages>
     VideoSearchDTO videoSearchDTO = VideoSearchDTO.copy(_videoSearchDTO);
     videoSearchDTO.currentPage += 1;
     List<VideoVO> videoVOList = await _searchVideoVO(videoSearchDTO);
-    if (videoVOList.isEmpty){
-      _isLoadMore=false;
+    if (videoVOList.isEmpty) {
+      _isEmpty = true;
+      setState(() {});
+      await Future.delayed(Duration(seconds: 1));
+      _isEmpty = false;
+      _isLoadMore = false;
       setState(() {});
       return;
-    };
+    }
+    ;
     _videoSearchDTO.currentPage = _videoSearchDTO.currentPage + 1;
     videoVOList.forEach((e) {
       _widgetList.add(VideoCover(e));
