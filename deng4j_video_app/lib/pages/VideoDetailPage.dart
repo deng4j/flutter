@@ -41,6 +41,8 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    // 获取屏幕尺寸
+    MediaQueryData queryData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -83,113 +85,110 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
               ));
             }
 
-            return Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: Theme.of(context).colorScheme.background,
-                child: Column(
-                  children: [
-                    // 视频播放器
-                    FutureBuilder<String>(
-                      future: _futureCurrentVideoUrl,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            // 次轴的排序方式
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            // 主轴的排序方式
-                            children: [
-                              Text("初始化视频中，请稍等"),
-                              CircularProgressIndicator()
-                            ],
-                          ));
-                        } else if (snapshot.connectionState ==
-                            ConnectionState.done) {
-                          String? url = snapshot.data;
-                          if (url == null || url == "") {
-                            var that = this;
-                            return Center(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              // 次轴的排序方式
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              // 主轴的排序方式
-                              children: [
-                                Text("获取视频连接失败"),
-                                OutlinedButton(
-                                    onPressed: () {
-                                      that.setState(() {
-                                        // 重新加载
-                                        _futureData = _getVideoDetailById(_id);
-                                      });
-                                    },
-                                    child: const Text("重新加载"))
-                              ],
-                            ));
-                          }
-
-                          return // 视频播放器
-                              DefaultPlayer(url);
-                        } else {
-                          return Center(
-                            child: Text("获取视频连接失败"),
-                          );
-                        }
-                      },
-                    ),
-                    Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      elevation: 20,
-                      margin:
-                          EdgeInsets.only(left: 3, right: 3, top: 5, bottom: 5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+            return ListView(
+              children: [
+                // 视频播放器
+                FutureBuilder<String>(
+                  future: _futureCurrentVideoUrl,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         // 次轴的排序方式
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         // 主轴的排序方式
-                        children: <Widget>[
-                          Text(
-                            "  名字：" + _videoDetailDTO.name,
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          Text(
-                            "  番号：" + _videoDetailDTO.number,
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          Text(
-                            "  类型：" + _categoryName,
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          Text(
-                            "  发行日期：" + _videoDetailDTO.releaseDate,
-                            style: TextStyle(fontSize: 15),
-                          ),
+                        children: [
+                          Text("初始化视频中，请稍等"),
+                          CircularProgressIndicator()
                         ],
+                      ));
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.done) {
+                      String? url = snapshot.data;
+                      if (url == null || url == "") {
+                        var that = this;
+                        return Center(
+                            child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // 次轴的排序方式
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          // 主轴的排序方式
+                          children: [
+                            Text("获取视频连接失败"),
+                            OutlinedButton(
+                                onPressed: () {
+                                  that.setState(() {
+                                    // 重新加载
+                                    _futureData = _getVideoDetailById(_id);
+                                  });
+                                },
+                                child: const Text("重新加载"))
+                          ],
+                        ));
+                      }
+
+                      return // 视频播放器
+                          DefaultPlayer(url);
+                    } else {
+                      return Center(
+                        child: Text("获取视频连接失败"),
+                      );
+                    }
+                  },
+                ),
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  elevation: 20,
+                  margin: EdgeInsets.only(left: 3, right: 3, top: 5, bottom: 5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    // 次轴的排序方式
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    // 主轴的排序方式
+                    children: <Widget>[
+                      Text(
+                        "  名字：" + _videoDetailDTO.name,
+                        style: TextStyle(fontSize: 15),
                       ),
+                      Text(
+                        "  番号：" + _videoDetailDTO.number,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      Text(
+                        "  类型：" + _categoryName,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      Text(
+                        "  发行日期：" + _videoDetailDTO.releaseDate,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                    child: Container(
+                  // 根据子元素算出宽度
+                  height: ((queryData.size.width - 12) / 4 / 1.618) * 2 + 12,
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      //水平子 Widget 之间间距
+                      crossAxisSpacing: 3.0,
+                      //垂直子 Widget 之间间距
+                      mainAxisSpacing: 6.0,
+                      //一行的 Widget 数量
+                      crossAxisCount: 4,
+                      //宽度和高度的比例
+                      childAspectRatio: 1.618,
                     ),
-                    Expanded(
-                      child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          //水平子 Widget 之间间距
-                          crossAxisSpacing: 3.0,
-                          //垂直子 Widget 之间间距
-                          mainAxisSpacing: 6.0,
-                          //一行的 Widget 数量
-                          crossAxisCount: 4,
-                          //宽度和高度的比例
-                          childAspectRatio: 1.618,
-                        ),
-                        itemCount: _filePathList.length,
-                        itemBuilder: _getFilePath,
-                      ),
-                    )
-                  ],
-                ));
+                    itemCount: _filePathList.length,
+                    itemBuilder: _getFilePath,
+                  ),
+                ))
+              ],
+            );
           } else {
             return Center(
               child: Text("获取视频信息失败"),
@@ -211,7 +210,11 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
         ),
         side: BorderSide(width: 1, color: Colors.grey),
       ),
-      child: Text(filePath.name),
+      child: Text(
+        filePath.name,
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 10),
+      ),
       onPressed: () {
         print(filePath.path);
         _futureCurrentVideoUrl = _switchVideo(filePath.path);

@@ -242,7 +242,9 @@ Execution failed for task ':app:compileFlutterBuildDebug'.
            This command should be run from the root of your Flutter project.
 ```
 
+# [ERROR:flutter/runtime/dart_vm_initializer.cc(41)] Unhandled Exception: MissingPluginException(No implementation found for method showToast on channel PonnamKarthik/fluttertoast)
 
+这种就是加了新依赖库，没重新安装app，直接debug
 
 
 

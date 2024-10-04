@@ -1,6 +1,6 @@
 import 'package:douyin_app/entity/Iconfont.dart';
 import 'package:douyin_app/pages/VideoPage.dart';
-import 'package:douyin_app/pages/favoritePage.dart';
+import 'package:douyin_app/pages/settingPage.dart';
 import 'package:douyin_app/pages/homePage.dart';
 import 'package:douyin_app/utils/HexColorUtil.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class TabBarAppBottom extends StatefulWidget {
 class _TabsState extends State<TabBarAppBottom> {
   int _currentIndex = 0;
   var _pageController;
-  final List<Widget> _pages = const [HomePage(), VideoPage(), FavoritePage()];
+  final List<Widget> _pages = const [HomePage(), VideoPage(), SettingPage()];
 
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _TabsState extends State<TabBarAppBottom> {
           items: const [
             BottomNavigationBarItem(icon: Icon(Iconfont.shouye), label: "首页"),
             BottomNavigationBarItem(icon: Icon(Iconfont.shipin), label: "视频"),
-            BottomNavigationBarItem(icon: Icon(Iconfont.shoucang), label: "收藏"),
+            BottomNavigationBarItem(icon: Icon(Icons.settings), label: "设置"),
           ]),
     );
   }

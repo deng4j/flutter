@@ -22,6 +22,7 @@ class SearchPage extends StatefulWidget {
 class _TabsState extends State<SearchPage> {
   late TextEditingController _textEditingController;
   late FocusNode _focusNode;
+  bool _justInitiated = true;
 
   List<Widget> _searchPageVideoCoverWidgetTempList = [];
   late Future<List<VideoVO>> _futureData;
@@ -255,8 +256,19 @@ class _TabsState extends State<SearchPage> {
       VoidCallback onFieldSubmitted) {
     _textEditingController = textEditingController;
     _focusNode = focusNode;
+    // 如果是刚刚初始化，获取焦点
+    if (_justInitiated) {
+      // 获取焦点
+      FocusScope.of(context).requestFocus(_focusNode);
+    }
+    _justInitiated=false;
 
     _textEditingController.addListener(() {
+      if (_focusNode.hasFocus) {
+        print("--------------获取焦点------------------");
+      } else {
+        print("--------------失去焦点------------------");
+      }
       // 动态修改组件属性
       setState(() {});
     });
